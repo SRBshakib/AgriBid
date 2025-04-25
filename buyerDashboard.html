@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyer Dashboard | AgriBid</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Boxicons -->
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/Style.css" />
+    <link rel="stylesheet" href="buyerDashboard.css">
+    <style>
+        .main-content { margin-left: var(--sidebar-width); padding: 20px; transition: all 0.3s; }
+        .sidebar.close ~ .main-content { margin-left: var(--sidebar-collapsed-width); }
+        .dashboard-card { border: none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); transition: transform 0.3s; border-left: 4px solid var(--primary); margin-bottom: 24px; height: 100%; }
+        .dashboard-card:hover { transform: translateY(-5px); }
+        .card-icon { width: 48px; height: 48px; border-radius: 8px; background: rgba(39, 174, 96, 0.1); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 20px; }
+        .card-value { font-size: 28px; font-weight: 700; margin: 12px 0; }
+        .chart-container { height: 250px; }
+        .activity-item { border-bottom: 1px solid #eee; padding: 12px 0; }
+    </style>
+</head>
+<body>
+    <nav class="sidebar close">
+        <header>
+            <div class="image-text">
+                <div class="text logo-text"><span class="name">AgriBid</span></div>
+            </div>
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
+        <div class="menu-bar">
+            <div class="menu">
+                <li class="search-box"><i class='bx bx-search icon'></i><input type="text" placeholder="Search..."></li>
+                <ul class="menu-links" style="padding-left: 0;">
+                    <li class="nav-link">
+                        <a class="active" href="buyerDashboard.html">
+                            <i class='bx bx-home-alt icon'></i>
+                            <span class="text nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-link"><a href="browseProducts.html"><i class='bx bx-store-alt icon'></i><span class="text nav-text">Browse Products</span></a></li>
+                    <li class="nav-link"><a href="myOrders.html"><i class='fas fa-shopping-bag icon'></i><span class="text nav-text">My Orders</span></a></li>
+                    <li class="nav-link"><a href="buyerNotifications.html"><i class='bx bx-bell icon'></i><span class="text nav-text">Notifications</span></a></li>
+                    <li class="nav-link"><a href="buyerAnalytics.html"><i class='bx bx-pie-chart-alt icon'></i><span class="text nav-text">Analytics</span></a></li>
+                    <li class="nav-link"><a href="#"><i class='bx bx-wallet icon'></i><span class="text nav-text">Wallets</span></a></li>
+                </ul>
+            </div>
+            <div class="bottom-content">
+                <li><a href="#"><i class='bx bx-log-out icon'></i><span class="text nav-text">Logout</span></a></li>
+                <li class="mode"><div class="sun-moon"><i class='bx bx-moon icon moon'></i><i class='bx bx-sun icon sun'></i></div><span class="mode-text text">Dark mode</span><div class="toggle-switch"><span class="switch"></span></div></li>
+            </div>
+        </div>
+    </nav>
+    <section class="home">
+        <div class="container-fluid">
+            <h2 class="mb-4 text">Dashboard Overview</h2>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3"><div class="card dashboard-card"><div class="card-body"><div class="d-flex justify-content-between align-items-center mb-3"><h5 class="card-title mb-0">Total Spent</h5><div class="card-icon"><i class="fas fa-credit-card"></i></div></div><h2 class="card-value">$8,430</h2><p class="card-text"><i class="fas fa-arrow-up text-success me-1"></i><span class="text-muted">5% from last month</span></p></div></div></div>
+                <div class="col-md-6 col-lg-3"><div class="card dashboard-card"><div class="card-body"><div class="d-flex justify-content-between align-items-center mb-3"><h5 class="card-title mb-0">Active Bids</h5><div class="card-icon"><i class="fas fa-gavel"></i></div></div><h2 class="card-value">15</h2><p class="card-text"><i class="fas fa-arrow-down text-warning me-1"></i><span class="text-muted">2 ended today</span></p></div></div></div>
+                <div class="col-md-6 col-lg-3"><div class="card dashboard-card"><div class="card-body"><div class="d-flex justify-content-between align-items-center mb-3"><h5 class="card-title mb-0">Orders Placed</h5><div class="card-icon"><i class="fas fa-shopping-cart"></i></div></div><h2 class="card-value">12</h2><p class="card-text"><i class="fas fa-arrow-up text-success me-1"></i><span class="text-muted">4 new this week</span></p></div></div></div>
+                <div class="col-md-6 col-lg-3"><div class="card dashboard-card"><div class="card-body"><div class="d-flex justify-content-between align-items-center mb-3"><h5 class="card-title mb-0">Pending Deliveries</h5><div class="card-icon"><i class="fas fa-truck-loading"></i></div></div><h2 class="card-value">3</h2><p class="card-text"><i class="fas fa-clock text-warning me-1"></i><span class="text-muted">1 urgent</span></p></div></div></div>
+            </div>
+            <div class="row g-4 mt-2">
+                <div class="col-lg-8"><div class="card dashboard-card"><div class="card-body"><div class="d-flex justify-content-between align-items-center mb-3"><h5 class="card-title mb-0">Spending Analytics (Last 30 Days)</h5><div class="card-icon"><i class="fas fa-chart-line"></i></div></div><div class="chart-container"><img src="https://via.placeholder.com/800x250/f0f0f0/27ae60?text=Spending+Chart" class="img-fluid rounded" alt="Spending Chart"></div></div></div></div>
+                <div class="col-lg-4"><div class="card dashboard-card"><div class="card-body"><div class="d-flex justify-content-between align-items-center mb-3"><h5 class="card-title mb-0">Recent Activity</h5><div class="card-icon"><i class="fas fa-bell"></i></div></div><div class="activity-list"><div class="activity-item d-flex"><div class="card-icon me-3" style="width:36px;height:36px;"><i class="fas fa-gavel"></i></div><div><h6 class="mb-1">Bid placed on "Organic Potatoes"</h6><p class="text-muted small mb-0">$1.80/kg • 20 mins ago</p></div></div><div class="activity-item d-flex"><div class="card-icon me-3" style="width:36px;height:36px;"><i class="fas fa-shopping-cart"></i></div><div><h6 class="mb-1">Order #5678 delivered</h6><p class="text-muted small mb-0">From Barisal • 3 hours ago</p></div></div><div class="activity-item d-flex"><div class="card-icon me-3" style="width:36px;height:36px;"><i class="fas fa-star"></i></div><div><h6 class="mb-1">4-star rating received</h6><p class="text-muted small mb-0">For seller • Yesterday</p></div></div></div></div></div></div>
+            <div class="row g-4 mt-2">
+                <div class="col-md-6"><div class="card dashboard-card"><div class="card-body"><div class="d-flex justify-content-between align-items-center mb-3"><h5 class="card-title mb-0">Recently Viewed</h5><div class="card-icon"><i class="fas fa-history"></i></div></div><ul class="list-unstyled"><li class="mb-2">Organic Carrots</li><li class="mb-2">Fresh Onions</li><li>Banana Bunch</li></ul></div></div></div>
+                <div class="col-md-6"><div class="card dashboard-card"><div class="card-body"><div class="d-flex justify-content-between align-items-center mb-3"><h5 class="card-title mb-0">Wishlist Alerts</h5><div class="card-icon"><i class="fas fa-heart"></i></div></div><div class="alert alert-info mb-3 d-flex align-items-center"><i class="fas fa-box-open me-2"></i><div><strong>Tomatoes</strong> - New batch available!</div></div><div class="alert alert-success d-flex align-items-center"><i class="fas fa-check-circle me-2"></i><div><strong>Potatoes</strong> - Price dropped to $1.60/kg</div></div></div></div></div>
+        </div>
+    </section>
+    <script>
+        const body = document.querySelector('body'),
+              sidebar = body.querySelector('nav'),
+              toggle = body.querySelector('.toggle'),
+              searchBtn = body.querySelector('.search-box'),
+              modeSwitch = body.querySelector('.toggle-switch'),
+              modeText = body.querySelector('.mode-text');
+        toggle.addEventListener('click', () => sidebar.classList.toggle('close'));
+        searchBtn.addEventListener('click', () => sidebar.classList.remove('close'));
+        modeSwitch.addEventListener('click', () => {
+            body.classList.toggle('dark');
+            modeText.innerText = body.classList.contains('dark') ? 'Light mode' : 'Dark mode';
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

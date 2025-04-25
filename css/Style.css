@@ -20,11 +20,11 @@
     --tran-04: all 0.3s ease;
     --tran-05: all 0.3s ease;
 }
-/* body{
-    min-height: ;
+body{
+    min-height: auto;
     background-color: var(--body-color);
     transition: var(--tran-05);
-} */
+}
 ::selection{
     background-color: var(--primary-color);
     color: #fff;
@@ -273,6 +273,7 @@ body.dark .switch::before{
     width: calc(100% - 250px);
     background-color: var(--body-color);
     transition: var(--tran-05);
+    min-height: auto;
 }
 .home .text{
     font-size: 30px;

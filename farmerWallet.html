@@ -1,0 +1,751 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer's Wallet</title>
+    <link rel="stylesheet" href="css/Style.css" />
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #27ae60;
+            --secondary-color: #2ecc71;
+            --background: #f5f6fa;
+            --text-dark: #2c3e50;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Wallet Section */
+        .wallet-section {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .wallet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .wallet-balance-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .wallet-total-earnings {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+        }
+        
+        .wallet-balance {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .wallet-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 1.5rem 0;
+        }
+        
+        .wallet-action-btn {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .wallet-action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+        
+        /* Payment Status */
+        .payment-status {
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-top: 5px;
+            display: inline-block;
+        }
+        
+        .status-pending {
+            background: #f39c12;
+            color: white;
+        }
+        
+        .status-completed {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .status-reserved {
+            background: #3498db;
+            color: white;
+        }
+        
+        /* Tabs */
+        .payment-tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 1rem;
+        }
+        
+        .payment-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .payment-tab.active {
+            border-bottom: 3px solid var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .payment-content {
+            display: none;
+        }
+        
+        .payment-content.active {
+            display: block;
+        }
+        
+        /* Transactions */
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+        }
+        
+        .transaction-details {
+            flex-grow: 1;
+        }
+        
+        .transaction-title {
+            font-weight: 500;
+        }
+        
+        .transaction-date {
+            font-size: 0.8rem;
+            color: #777;
+        }
+        
+        .transaction-amount.credit {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .transaction-amount.debit {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        /* Forms */
+        .transfer-form {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .transfer-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        /* PDF Button */
+        .pdf-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 1rem;
+        }
+        
+        /* Threshold Info */
+        .threshold-info {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        /* Payment Methods */
+        .payment-method {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .payment-method img {
+            width: 30px;
+            height: 30px;
+        }
+        
+        /* Auto Payment Toggle */
+        .auto-payment-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+    <nav class="sidebar close">
+        <header>
+            <div class="image-text">
+                <!-- <span class="image">
+                    <img src="logo.png" alt="">
+                </span> -->
+                <div class="text logo-text">
+                    <span class="name">AgriBid</span>
+                    <!-- <span class="profession">Web developer</span> -->
+                </div>
+            </div>
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
+        <div class="menu-bar">
+            <div class="menu">
+                <li class="search-box">
+                    <i class='bx bx-search icon'></i>
+                    <input type="text" placeholder="Search...">
+                </li>
+                <ul class="menu-links">
+                    <li class="nav-link">
+                        <a href="farmerdashboard.html">
+                            <i class='bx bx-home-alt icon' ></i>
+                            <span class="text nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-link ">
+                        <a class="" href="addProduct.html">
+                            <i class='bx bx-add-to-queue icon'></i>
+                            <span class="text nav-text">Add Product</span>
+                        </a>
+                    </li>
+                    <li class="nav-link active">
+                        <a href="farmerNotification.html" >
+                            <i class='bx bx-bell icon'></i>
+                            <span class="text nav-text">Notifications</span>
+                        </a>
+                    </li>
+                    <li class="nav-link ">
+                        <a class="" href="marketAnalysis.html">
+                            <i class='bx bx-pie-chart-alt icon' ></i>
+                            <span class="text nav-text ">Analytics</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="farmerBidding.html">
+                            <i class="fa fa-solid fa-gavel icon"></i>
+                            <span class="text nav-text">Bidding</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="farmerWallet.html" class="active">
+                            <i class='bx bx-wallet icon' ></i>
+                            <span class="text nav-text">Wallets</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="bottom-content">
+                <li class="">
+                    <a href="#">
+                        <i class='bx bx-log-out icon' ></i>
+                        <span class="text nav-text">Logout</span>
+                    </a>
+                </li>
+                <li class="mode">
+                    <div class="sun-moon">
+                        <i class='bx bx-moon icon moon'></i>
+                        <i class='bx bx-sun icon sun'></i>
+                    </div>
+                    <span class="mode-text text">Dark mode</span>
+                    <div class="toggle-switch">
+                        <span class="switch"></span>
+                    </div>
+                </li>
+                
+            </div>
+        </div>
+    </nav>
+
+    <section class="home">
+        <div class="text">Farmer Wallet</div>
+        <div class="container">
+            <div class="wallet-section">
+                <div class="wallet-header">
+                    <h2><i class='bx bx-wallet'></i> Farmer Wallet</h2>
+                    <div class="wallet-balance-container">
+                        <div class="wallet-total-earnings">
+                            Total Earnings: <span>৳25,450.20</span>
+                        </div>
+                        <div class="wallet-balance">৳12,450.75</div>
+                    </div>
+                </div>
+                
+                <div class="threshold-info">
+                    <i class='bx bx-info-circle'></i> Payments are automatically transferred to your bank/bKash when they reach ৳10,000. Current pending: ৳8,450.75
+                </div>
+                
+                <div class="wallet-actions">
+                    <button class="wallet-action-btn" onclick="showTab('transactions')">
+                        <i class='bx bx-history'></i>
+                        <span>Transactions</span>
+                    </button>
+                    <button class="wallet-action-btn" onclick="showTab('sales')">
+                        <i class='bx bx-analyse'></i>
+                        <span>Sales Payments</span>
+                    </button>
+                    <button class="wallet-action-btn" onclick="showTab('reserved')">
+                        <i class='bx bx-time-five'></i>
+                        <span>Reserved Funds</span>
+                    </button>
+                    <button class="wallet-action-btn" onclick="showTab('request')">
+                        <i class='bx bx-money'></i>
+                        <span>Request Payment</span>
+                    </button>
+                </div>
+                
+                <div class="payment-tabs">
+                    <div class="payment-tab active" onclick="showTab('transactions')">All Transactions</div>
+                    <div class="payment-tab" onclick="showTab('sales')">Sales Payments</div>
+                    <div class="payment-tab" onclick="showTab('reserved')">Reserved Funds</div>
+                    <div class="payment-tab" onclick="showTab('request')">Payment Request</div>
+                </div>
+                
+                <!-- All Transactions -->
+                <div class="payment-content active" id="transactions">
+                    <h4>All Transactions</h4>
+                    <div class="transaction-item">
+                        <div class="transaction-details">
+                            <div class="transaction-title">Rice Sale - AgriCorp (Commission: ৳150.00)</div>
+                            <div class="transaction-date">Today, 10:45 AM | Order #12347</div>
+                            <span class="payment-status status-completed">Completed</span>
+                        </div>
+                        <div class="transaction-amount credit">+৳1,850.00</div>
+                    </div>
+                    <div class="transaction-item">
+                        <div class="transaction-details">
+                            <div class="transaction-title">Wheat Sale - Bid Winner (Commission: ৳200.00)</div>
+                            <div class="transaction-date">Yesterday, 2:30 PM | Order #12345</div>
+                            <span class="payment-status status-completed">Completed</span>
+                        </div>
+                        <div class="transaction-amount credit">+৳1,800.00</div>
+                    </div>
+                    <div class="transaction-item">
+                        <div class="transaction-details">
+                            <div class="transaction-title">Advance Payment - Potato Sale</div>
+                            <div class="transaction-date">May 12, 9:15 AM | Order #12340</div>
+                            <span class="payment-status status-reserved">Reserved</span>
+                        </div>
+                        <div class="transaction-amount credit">+৳2,150.75</div>
+                    </div>
+                    <button class="pdf-btn" onclick="generatePDF('transactions')">
+                        <i class='bx bxs-file-pdf'></i>
+                        <span>Export as PDF</span>
+                    </button>
+                </div>
+                
+                <!-- Sales Payments -->
+                <div class="payment-content" id="sales">
+                    <h4>Sales Payments</h4>
+                    <div class="transaction-item">
+                        <div class="transaction-details">
+                            <div class="transaction-title">Rice Sale - AgriCorp (Commission: ৳150.00)</div>
+                            <div class="transaction-date">Today, 10:45 AM | Order #12347</div>
+                            <span class="payment-status status-completed">Completed</span>
+                        </div>
+                        <div class="transaction-amount credit">+৳1,850.00</div>
+                    </div>
+                    <div class="transaction-item">
+                        <div class="transaction-details">
+                            <div class="transaction-title">Wheat Sale - Bid Winner (Commission: ৳200.00)</div>
+                            <div class="transaction-date">Yesterday, 2:30 PM | Order #12345</div>
+                            <span class="payment-status status-completed">Completed</span>
+                        </div>
+                        <div class="transaction-amount credit">+৳1,800.00</div>
+                    </div>
+                    <div class="transaction-item">
+                        <div class="transaction-details">
+                            <div class="transaction-title">Corn Sale - Local Market (Commission: ৳120.50)</div>
+                            <div class="transaction-date">May 10, 11:20 AM | Order #12344</div>
+                            <span class="payment-status status-completed">Completed</span>
+                        </div>
+                        <div class="transaction-amount credit">+৳950.50</div>
+                    </div>
+                    <div class="transaction-item">
+                        <div class="transaction-details">
+                            <div class="transaction-title">Total Sales This Month (After Commission)</div>
+                            <div class="transaction-date">May 1 - May 15</div>
+                        </div>
+                        <div class="transaction-amount credit">+৳4,901.25</div>
+                    </div>
+                    <button class="pdf-btn" onclick="generatePDF('sales')">
+                        <i class='bx bxs-file-pdf'></i>
+                        <span>Export as PDF</span>
+                    </button>
+                </div>
+                
+                <!-- Reserved Funds -->
+                <div class="payment-content" id="reserved">
+                    <h4>Reserved Funds (Advance Payments)</h4>
+                    <div class="transaction-item">
+                        <div class="transaction-details">
+                            <div class="transaction-title">Potato Sale - FoodCo (Pending Delivery)</div>
+                            <div class="transaction-date">May 12, 9:15 AM | Order #12340</div>
+                            <span class="payment-status status-reserved">Reserved</span>
+                        </div>
+                        <div class="transaction-amount credit">+৳2,150.75</div>
+                    </div>
+                    <div class="transaction-item">
+                        <div class="transaction-details">
+                            <div class="transaction-title">Tomato Sale - Restaurant Chain (Pending Delivery)</div>
+                            <div class="transaction-date">May 8, 3:30 PM | Order #12342</div>
+                            <span class="payment-status status-reserved">Reserved</span>
+                        </div>
+                        <div class="transaction-amount credit">+৳3,250.00</div>
+                    </div>
+                    <div class="transaction-item">
+                        <div class="transaction-details">
+                            <div class="transaction-title">Total Reserved Funds</div>
+                            <div class="transaction-date">Will be released after delivery</div>
+                        </div>
+                        <div class="transaction-amount credit">+৳5,400.75</div>
+                    </div>
+                    <button class="pdf-btn" onclick="generatePDF('reserved')">
+                        <i class='bx bxs-file-pdf'></i>
+                        <span>Export as PDF</span>
+                    </button>
+                </div>
+                
+                <!-- Payment Request -->
+                <div class="payment-content" id="request">
+                    <h4>Payment Request</h4>
+                    <div class="request-section">
+                        <h5>Available for Withdrawal: ৳12,450.75</h5>
+                        
+                        <div class="auto-payment-toggle">
+                            <label>Auto Transfer when balance reaches ৳10,000</label>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="transfer-form">
+                            <div class="form-group">
+                                <label>Amount to Withdraw</label>
+                                <input type="number" placeholder="Enter amount" value="12450.75">
+                            </div>
+                            <div class="form-group">
+                                <label>Withdrawal Method</label>
+                                <div class="payment-method">
+                                    <input type="radio" id="bank" name="withdrawMethod" checked>
+                                    <label for="bank"><img src="https://cdn-icons-png.flaticon.com/512/259/259418.png" alt="Bank"> Bank Transfer</label>
+                                </div>
+                                <div class="payment-method">
+                                    <input type="radio" id="bkash" name="withdrawMethod">
+                                    <label for="bkash"><img src="https://seeklogo.com/images/B/bkash-logo-C6D0D8534C-seeklogo.com.png" alt="bKash"> bKash</label>
+                                </div>
+                            </div>
+                            <div class="form-group" id="bankDetails">
+                                <label>Bank Account Details</label>
+                                <input type="text" placeholder="Account Number" value="123456789">
+                                <input type="text" placeholder="Bank Name" value="Agrani Bank Ltd" style="margin-top: 10px;">
+                                <input type="text" placeholder="Branch" value="Dhaka Main Branch">
+                            </div>
+                            <div class="form-group" id="bkashDetails" style="display: none;">
+                                <label>bKash Account Details</label>
+                                <input type="text" placeholder="bKash Number" value="017XXXXXXXX">
+                            </div>
+                            <button class="transfer-btn" onclick="requestPayment()">Request Payment</button>
+                        </div>
+                    </div>
+                    
+                    <h4 style="margin-top: 2rem;">Recent Payment Requests</h4>
+                    <div class="transaction-item">
+                        <div class="transaction-details">
+                            <div class="transaction-title">Payment Transfer to Bank</div>
+                            <div class="transaction-date">May 10, 9:15 AM | Transaction #PAY-1001</div>
+                            <span class="payment-status status-completed">Completed</span>
+                        </div>
+                        <div class="transaction-amount debit">-৳10,000.00</div>
+                    </div>
+                    <div class="transaction-item">
+                        <div class="transaction-details">
+                            <div class="transaction-title">Payment Transfer to bKash</div>
+                            <div class="transaction-date">May 1, 2:30 PM | Transaction #PAY-1000</div>
+                            <span class="payment-status status-completed">Completed</span>
+                        </div>
+                        <div class="transaction-amount debit">-৳8,500.00</div>
+                    </div>
+                    <button class="pdf-btn" onclick="generatePDF('requests')">
+                        <i class='bx bxs-file-pdf'></i>
+                        <span>Export as PDF</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PDF Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+
+    <script>
+        // Tab Navigation
+        function showTab(tabId) {
+            document.querySelectorAll('.payment-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.payment-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+            updatePaymentMethodVisibility();
+        }
+        
+        // Payment Method Visibility
+        function updatePaymentMethodVisibility() {
+            const bankRadio = document.getElementById('bank');
+            if(bankRadio.checked) {
+                document.getElementById('bankDetails').style.display = 'block';
+                document.getElementById('bkashDetails').style.display = 'none';
+            } else {
+                document.getElementById('bankDetails').style.display = 'none';
+                document.getElementById('bkashDetails').style.display = 'block';
+            }
+        }
+        
+        // Payment Request
+        function requestPayment() {
+            const amount = document.querySelector('#request input[type="number"]').value;
+            const method = document.querySelector('#request input[name="withdrawMethod"]:checked').id;
+            
+            if(confirm(`Request payment of ৳${amount} via ${method}?`)) {
+                alert('Payment request submitted successfully!');
+            }
+        }
+        
+        // PDF Generation
+        function generatePDF(type) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const date = new Date().toLocaleDateString();
+            const title = `Farmer Wallet ${type.charAt(0).toUpperCase() + type.slice(1)} Report`;
+            
+            // Title and Header
+            doc.setFontSize(18);
+            doc.text(title, 14, 20);
+            doc.setFontSize(12);
+            doc.text(`Generated on: ${date}`, 14, 30);
+            doc.text('Farmer: Mohammad Rahman', 14, 40);
+            doc.text('Account ID: FARM-12345', 14, 45);
+            
+            // Table Data
+            let headers = [];
+            let rows = [];
+            
+            switch(type) {
+                case 'transactions':
+                    headers = ['Date', 'Description', 'Amount', 'Status'];
+                    rows = [
+                        ['Today, 10:45 AM', 'Rice Sale - AgriCorp (Commission: ৳150.00)', '৳1,850.00', 'Completed'],
+                        ['Yesterday, 2:30 PM', 'Wheat Sale - Bid Winner (Commission: ৳200.00)', '৳1,800.00', 'Completed'],
+                        ['May 12, 9:15 AM', 'Advance Payment - Potato Sale', '৳2,150.75', 'Reserved']
+                    ];
+                    break;
+                case 'sales':
+                    headers = ['Date', 'Sale Description', 'Amount', 'Commission'];
+                    rows = [
+                        ['Today, 10:45 AM', 'Rice Sale - AgriCorp', '৳1,850.00', '৳150.00'],
+                        ['Yesterday, 2:30 PM', 'Wheat Sale - Bid Winner', '৳1,800.00', '৳200.00'],
+                        ['May 10, 11:20 AM', 'Corn Sale - Local Market', '৳950.50', '৳120.50']
+                    ];
+                    break;
+                case 'reserved':
+                    headers = ['Date', 'Product', 'Buyer', 'Amount', 'Status'];
+                    rows = [
+                        ['May 12, 9:15 AM', 'Potato', 'FoodCo', '৳2,150.75', 'Pending Delivery'],
+                        ['May 8, 3:30 PM', 'Tomato', 'Restaurant Chain', '৳3,250.00', 'Pending Delivery']
+                    ];
+                    break;
+                case 'requests':
+                    headers = ['Date', 'Transaction', 'Method', 'Amount', 'Status'];
+                    rows = [
+                        ['May 10, 9:15 AM', 'PAY-1001', 'Bank Transfer', '৳10,000.00', 'Completed'],
+                        ['May 1, 2:30 PM', 'PAY-1000', 'bKash', '৳8,500.00', 'Completed']
+                    ];
+                    break;
+            }
+            
+            // Generate Table
+            doc.autoTable({
+                startY: 50,
+                head: [headers],
+                body: rows,
+                theme: 'grid',
+                headStyles: {
+                    fillColor: [39, 174, 96]
+                }
+            });
+            
+            // Add Summary
+            if(type === 'sales') {
+                doc.text('Total Sales This Month (After Commission): ৳4,901.25', 14, doc.lastAutoTable.finalY + 15);
+            } else if(type === 'reserved') {
+                doc.text('Total Reserved Funds: ৳5,400.75', 14, doc.lastAutoTable.finalY + 15);
+            }
+            
+            // Save PDF
+            doc.save(`FarmerWallet_${type}_Report_${date.replace(/\//g, '-')}.pdf`);
+        }
+        
+        // Initialize
+        document.getElementById('bank').addEventListener('change', updatePaymentMethodVisibility);
+        document.getElementById('bkash').addEventListener('change', updatePaymentMethodVisibility);
+    </script>
+     <script>
+        const body = document.querySelector('body'),
+      sidebar = body.querySelector('nav'),
+      toggle = body.querySelector(".toggle"),
+      searchBtn = body.querySelector(".search-box"),
+      modeSwitch = body.querySelector(".toggle-switch"),
+      modeText = body.querySelector(".mode-text");
+toggle.addEventListener("click" , () =>{
+    sidebar.classList.toggle("close");
+})
+searchBtn.addEventListener("click" , () =>{
+    sidebar.classList.remove("close");
+})
+modeSwitch.addEventListener("click" , () =>{
+    body.classList.toggle("dark");
+    
+    if(body.classList.contains("dark")){
+        modeText.innerText = "Light mode";
+    }else{
+        modeText.innerText = "Dark mode";
+        
+    }
+});
+    </script>
+
+</body>
+</html>

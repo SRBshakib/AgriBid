@@ -1,0 +1,594 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+    <link rel="stylesheet" href="css/Style.css" />
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #27ae60;
+            --secondary-color: #2ecc71;
+            --background: #f5f6fa;
+            --text-dark: #2c3e50;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 2rem 0;
+        }
+
+        /* Market Card */
+        .market-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .market-header {
+            border-bottom: 2px solid var(--background);
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .price-table {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .price-table td {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            margin: 3rem 0;
+            height: 400px;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            padding: 2rem;
+            text-align: center;
+            display: none;
+        }
+        
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-title {
+            font-size: 28px;
+            color: var(--text-dark);
+        }
+
+        .edit-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .profile-section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .info-group {
+            margin-bottom: 15px;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .info-value {
+            background: #f9f9f9;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #eee;
+        }
+
+        /* Edit Mode Styles */
+        .edit-mode .info-value {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 10px;
+            width: 100%;
+        }
+
+        .edit-mode .save-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .edit-mode .cancel-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            margin-left: 15px;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* Profile Photo */
+        .profile-photo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .change-photo-btn {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        /* Farm Details */
+        .farm-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="sidebar close">
+        <header>
+            <div class="image-text">
+                <!-- <span class="image">
+                    <img src="logo.png" alt="">
+                </span> -->
+                <div class="text logo-text">
+                    <span class="name">AgriBid</span>
+                    <!-- <span class="profession">Web developer</span> -->
+                </div>
+            </div>
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
+        <div class="menu-bar">
+            <div class="menu">
+                <li class="search-box">
+                    <i class='bx bx-search icon'></i>
+                    <input type="text" placeholder="Search...">
+                </li>
+                <ul class="menu-links">
+                    <li class="nav-link">
+                        <a href="farmerdashboard.html">
+                            <i class='bx bx-home-alt icon' ></i>
+                            <span class="text nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-link ">
+                        <a class="" href="addProduct.html">
+                            <i class='bx bx-add-to-queue icon'></i>
+                            <span class="text nav-text">Add Product</span>
+                        </a>
+                    </li>
+                    <li class="nav-link active">
+                        <a href="farmerNotification.html" >
+                            <i class='bx bx-bell icon'></i>
+                            <span class="text nav-text">Notifications</span>
+                        </a>
+                    </li>
+                    <li class="nav-link ">
+                        <a class="" href="marketAnalysis.html">
+                            <i class='bx bx-pie-chart-alt icon' ></i>
+                            <span class="text nav-text ">Analytics</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="farmerBidding.html">
+                            <i class="fa fa-solid fa-gavel icon"></i>
+                            <span class="text nav-text">Bidding</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="farmerWallet.html">
+                            <i class='bx bx-wallet icon' ></i>
+                            <span class="text nav-text">Wallets</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="farmerProfile.html" class="active" >
+                            <i class='bx bxs-user-detail icon'></i>
+                            <span class="text nav-text">Profile</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="bottom-content">
+                <li class="">
+                    <a href="#">
+                        <i class='bx bx-log-out icon' ></i>
+                        <span class="text nav-text">Logout</span>
+                    </a>
+                </li>
+                <li class="mode">
+                    <div class="sun-moon">
+                        <i class='bx bx-moon icon moon'></i>
+                        <i class='bx bx-sun icon sun'></i>
+                    </div>
+                    <span class="mode-text text">Dark mode</span>
+                    <div class="toggle-switch">
+                        <span class="switch"></span>
+                    </div>
+                </li>
+                
+            </div>
+        </div>
+    </nav>
+    <section class="home">
+        <div class="text">Update Profile</div>
+        <div class="container">
+            <div class="profile-header">
+                <h1 class="profile-title">Farmer Profile</h1>
+                <button class="edit-btn" id="editProfileBtn">
+                    <i class='bx bx-edit'></i>
+                    Edit Profile
+                </button>
+            </div>
+    
+            <div class="profile-card">
+                <div class="profile-photo-container">
+                    <img src="https://images.unsplash.com/photo-1601288496920-b6154fe3626a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
+                         alt="Profile Photo" class="profile-photo" id="profilePhoto">
+                    <button class="change-photo-btn" id="changePhotoBtn">Change Photo</button>
+                    <input type="file" id="photoUpload" accept="image/*" style="display: none;">
+                </div>
+    
+                <div class="profile-grid">
+                    <div class="profile-section">
+                        <h2 class="section-title">Personal Information</h2>
+                        <div class="info-group">
+                            <label class="info-label">Full Name</label>
+                            <div class="info-value" id="fullName">Mohammad Rahman</div>
+                        </div>
+                        <div class="info-group">
+                            <label class="info-label">Date of Birth</label>
+                            <div class="info-value" id="dob">15 March 1985</div>
+                        </div>
+                        <div class="info-group">
+                            <label class="info-label">NID Number</label>
+                            <div class="info-value" id="nid">1234567890</div>
+                        </div>
+                        <div class="info-group">
+                            <label class="info-label">Mobile Number</label>
+                            <div class="info-value" id="mobile">+8801712345678</div>
+                        </div>
+                    </div>
+    
+                    <div class="profile-section">
+                        <h2 class="section-title">Contact Information</h2>
+                        <div class="info-group">
+                            <label class="info-label">Email</label>
+                            <div class="info-value" id="email">farmer.rahman@example.com</div>
+                        </div>
+                        <div class="info-group">
+                            <label class="info-label">Address</label>
+                            <div class="info-value" id="address">123 Farm Road, Agricultural Zone, Dhaka</div>
+                        </div>
+                        <div class="info-group">
+                            <label class="info-label">District</label>
+                            <div class="info-value" id="district">Dhaka</div>
+                        </div>
+                        <div class="info-group">
+                            <label class="info-label">Upazila</label>
+                            <div class="info-value" id="upazila">Savar</div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="profile-section">
+                    <h2 class="section-title">Banking Information</h2>
+                    <div class="profile-grid">
+                        <div class="info-group">
+                            <label class="info-label">Bank Name</label>
+                            <div class="info-value" id="bankName">Agrani Bank Ltd</div>
+                        </div>
+                        <div class="info-group">
+                            <label class="info-label">Account Number</label>
+                            <div class="info-value" id="accountNumber">1234567890</div>
+                        </div>
+                        <div class="info-group">
+                            <label class="info-label">Branch Name</label>
+                            <div class="info-value" id="branchName">Dhaka Main Branch</div>
+                        </div>
+                        <div class="info-group">
+                            <label class="info-label">bKash Number</label>
+                            <div class="info-value" id="bkashNumber">01712345678</div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="profile-section">
+                    <h2 class="section-title">Farm Information</h2>
+                    <div class="profile-grid">
+                        <div class="info-group">
+                            <label class="info-label">Farm Name</label>
+                            <div class="info-value" id="farmName">Rahman Agro Farm</div>
+                        </div>
+                        <div class="info-group">
+                            <label class="info-label">Farm Size (Acres)</label>
+                            <div class="info-value" id="farmSize">5.5</div>
+                        </div>
+                        <div class="info-group">
+                            <label class="info-label">Main Crops</label>
+                            <div class="info-value" id="mainCrops">Rice, Wheat, Vegetables</div>
+                        </div>
+                        <div class="info-group">
+                            <label class="info-label">Farming Experience (Years)</label>
+                            <div class="info-value" id="experience">12</div>
+                        </div>
+                    </div>
+                    <div class="info-group">
+                        <label class="info-label">Farm Location</label>
+                        <div class="info-value" id="farmLocation">Agricultural Zone, Savar, Dhaka</div>
+                    </div>
+                    <div class="info-group">
+                        <label class="info-label">Farm Photo</label>
+                        <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
+                             alt="Farm Photo" class="farm-image">
+                    </div>
+                </div>
+    
+                <div class="button-group" id="actionButtons" style="display: none;">
+                    <button class="save-btn" id="saveProfileBtn">Save Changes</button>
+                    <button class="cancel-btn" id="cancelEditBtn">Cancel</button>
+                </div>
+            </div>
+        </div>
+    
+
+    </section>
+    <script>
+        // DOM Elements
+        const editProfileBtn = document.getElementById('editProfileBtn');
+        const saveProfileBtn = document.getElementById('saveProfileBtn');
+        const cancelEditBtn = document.getElementById('cancelEditBtn');
+        const changePhotoBtn = document.getElementById('changePhotoBtn');
+        const photoUpload = document.getElementById('photoUpload');
+        const profilePhoto = document.getElementById('profilePhoto');
+        const actionButtons = document.getElementById('actionButtons');
+        const infoValues = document.querySelectorAll('.info-value');
+
+        // Original values for cancel functionality
+        let originalValues = {};
+
+        // Enter Edit Mode
+        editProfileBtn.addEventListener('click', () => {
+            document.body.classList.add('edit-mode');
+            editProfileBtn.style.display = 'none';
+            actionButtons.style.display = 'flex';
+            
+            // Store original values
+            infoValues.forEach(element => {
+                const id = element.id;
+                originalValues[id] = element.textContent;
+                element.innerHTML = `<input type="text" id="edit-${id}" value="${element.textContent}">`;
+            });
+        });
+
+        // Save Changes
+        saveProfileBtn.addEventListener('click', () => {
+            // In a real app, you would send this data to the server
+            infoValues.forEach(element => {
+                const id = element.id;
+                const inputValue = document.getElementById(`edit-${id}`).value;
+                element.textContent = inputValue;
+            });
+
+            exitEditMode();
+            alert('Profile updated successfully!');
+        });
+
+        // Cancel Edit
+        cancelEditBtn.addEventListener('click', () => {
+            // Restore original values
+            infoValues.forEach(element => {
+                const id = element.id;
+                element.textContent = originalValues[id];
+            });
+
+            exitEditMode();
+        });
+
+        // Change Profile Photo
+        changePhotoBtn.addEventListener('click', () => {
+            photoUpload.click();
+        });
+
+        photoUpload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    profilePhoto.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Exit Edit Mode
+        function exitEditMode() {
+            document.body.classList.remove('edit-mode');
+            editProfileBtn.style.display = 'flex';
+            actionButtons.style.display = 'none';
+        }
+
+        // Initialize date picker for DOB (would need a date picker library in real implementation)
+        // This is just a placeholder for the concept
+        if (document.getElementById('edit-dob')) {
+            document.getElementById('edit-dob').type = 'date';
+        }
+    </script>
+    <script>
+        const body = document.querySelector('body'),
+      sidebar = body.querySelector('nav'),
+      toggle = body.querySelector(".toggle"),
+      searchBtn = body.querySelector(".search-box"),
+      modeSwitch = body.querySelector(".toggle-switch"),
+      modeText = body.querySelector(".mode-text");
+toggle.addEventListener("click" , () =>{
+    sidebar.classList.toggle("close");
+})
+searchBtn.addEventListener("click" , () =>{
+    sidebar.classList.remove("close");
+})
+modeSwitch.addEventListener("click" , () =>{
+    body.classList.toggle("dark");
+    
+    if(body.classList.contains("dark")){
+        modeText.innerText = "Light mode";
+    }else{
+        modeText.innerText = "Dark mode";
+        
+    }
+});
+    </script>
+     
+     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+
+</html>

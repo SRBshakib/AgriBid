@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyer Dashboard | AgriBid</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Boxicons -->
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/Style.css" />
+    <link rel="stylesheet" href="buyerDashboard.css">
+    <style>
+        .main-content { margin-left: var(--sidebar-width); padding: 20px; transition: all 0.3s; }
+        .sidebar.close ~ .main-content { margin-left: var(--sidebar-collapsed-width); }
+        .dashboard-card { border: none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); transition: transform 0.3s; border-left: 4px solid var(--primary); margin-bottom: 24px; height: 100%; }
+        .dashboard-card:hover { transform: translateY(-5px); }
+        .card-icon { width: 48px; height: 48px; border-radius: 8px; background: rgba(39, 174, 96, 0.1); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 20px; }
+        .card-value { font-size: 28px; font-weight: 700; margin: 12px 0; }
+        .chart-container { height: 250px; }
+        .activity-item { border-bottom: 1px solid #eee; padding: 12px 0; }
+        :root {
+            --primary: #28a745;
+            --secondary: #6c757d;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --sidebar-width: 250px;
+            --sidebar-collapsed-width: 80px;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+        }
+        
+        .order-card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .order-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .order-status {
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        .status-processing {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-shipped {
+            background-color: #cce5ff;
+            color: #004085;
+        }
+        
+        .status-delivered {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status-cancelled {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .product-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .taka-symbol {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: bold;
+        }
+        
+        .tracking-progress {
+            height: 6px;
+            border-radius: 3px;
+        }
+        
+        .bid-status {
+            font-size: 0.85rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        
+        .leading-bid {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .outbid {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .pending-bid {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 20px;
+            transition: all 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <nav class="sidebar close">
+        <header>
+            <div class="image-text">
+                <div class="text logo-text"><span class="name">AgriBid</span></div>
+            </div>
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
+        <div class="menu-bar">
+            <div class="menu">
+                <li class="search-box"><i class='bx bx-search icon'></i><input type="text" placeholder="Search..."></li>
+                <ul class="menu-links" style="padding-left: 0;">
+                    <li class="nav-link">
+                        <a  href="buyerDashboard.html">
+                            <i class='bx bx-home-alt icon'></i>
+                            <span class="text nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-link"><a  href="byersProduct.html"><i class='bx bx-store-alt icon'></i><span class="text nav-text">Browse Products</span></a></li>
+                    <li class="nav-link"><a class="active" href="byerOrders.html"><i class='fas fa-shopping-bag icon'></i><span class="text nav-text">My Orders</span></a></li>
+                    <li class="nav-link"><a href="buyerNotifications.html"><i class='bx bx-bell icon'></i><span class="text nav-text">Notifications</span></a></li>
+                    <li class="nav-link"><a href="buyerAnalytics.html"><i class='bx bx-pie-chart-alt icon'></i><span class="text nav-text">Analytics</span></a></li>
+                    <li class="nav-link"><a href="#"><i class='bx bx-wallet icon'></i><span class="text nav-text">Wallets</span></a></li>
+                </ul>
+            </div>
+            <div class="bottom-content">
+                <li><a href="#"><i class='bx bx-log-out icon'></i><span class="text nav-text">Logout</span></a></li>
+                <li class="mode"><div class="sun-moon"><i class='bx bx-moon icon moon'></i><i class='bx bx-sun icon sun'></i></div><span class="mode-text text">Dark mode</span><div class="toggle-switch"><span class="switch"></span></div></li>
+            </div>
+        </div>
+    </nav>
+    <section class="home">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="mb-0">Order Tracking</h2>
+                <div>
+                    <button class="btn btn-outline-primary me-2">
+                        <i class="fas fa-download me-1"></i> Export
+                    </button>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-plus me-1"></i> New Order
+                    </button>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-8">
+                    <!-- Active Orders Section -->
+                    <div class="card order-card mb-4">
+                        <div class="card-header bg-white border-0">
+                            <h5 class="mb-0">Active Orders</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Order #</th>
+                                            <th>Date</th>
+                                            <th>Items</th>
+                                            <th>Total</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>#AGB-10045</td>
+                                            <td>15 Nov 2023</td>
+                                            <td>3</td>
+                                            <td><span class="taka-symbol">TK</span> 1,24,500</td>
+                                            <td><span class="order-status status-shipped">Shipped</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary">Track</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#AGB-10032</td>
+                                            <td>10 Nov 2023</td>
+                                            <td>1</td>
+                                            <td><span class="taka-symbol">TK</span> 84,550</td>
+                                            <td><span class="order-status status-processing">Processing</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-secondary">Details</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#AGB-10028</td>
+                                            <td>05 Nov 2023</td>
+                                            <td>5</td>
+                                            <td><span class="taka-symbol">TK</span> 2,15,700</td>
+                                            <td><span class="order-status status-processing">Processing</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-secondary">Details</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bidding Status Section -->
+                    <div class="card order-card">
+                        <div class="card-header bg-white border-0">
+                            <h5 class="mb-0">Bidding Status</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Bid #</th>
+                                            <th>Product</th>
+                                            <th>Your Bid</th>
+                                            <th>Current Best</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>#BID-209</td>
+                                            <td>Steel Coils (1000kg)</td>
+                                            <td><span class="taka-symbol">TK</span> 1,250/kg</td>
+                                            <td><span class="taka-symbol">TK</span> 1,220/kg</td>
+                                            <td><span class="bid-status leading-bid">Leading</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-warning">Modify</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#BID-198</td>
+                                            <td>PVC Pipes (500m)</td>
+                                            <td><span class="taka-symbol">TK</span> 320/m</td>
+                                            <td><span class="taka-symbol">TK</span> 305/m</td>
+                                            <td><span class="bid-status outbid">Outbid</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-danger">Rebid</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#BID-215</td>
+                                            <td>Ceramic Tiles (2000sqft)</td>
+                                            <td><span class="taka-symbol">TK</span> 475/sqft</td>
+                                            <td>-</td>
+                                            <td><span class="bid-status pending-bid">Pending</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-secondary">View</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <!-- Order Summary -->
+                    <div class="card order-card mb-4">
+                        <div class="card-header bg-white border-0">
+                            <h5 class="mb-0">Order Summary</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span>Total Orders:</span>
+                                <strong>8</strong>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span>Completed:</span>
+                                <strong>3</strong>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span>In Progress:</span>
+                                <strong>4</strong>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span>Cancelled:</span>
+                                <strong>1</strong>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>Total Spend:</span>
+                                <strong class="text-primary"><span class="taka-symbol">TK</span> 5,42,750</strong>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Notifications -->
+                    <div class="card order-card">
+                        <div class="card-header bg-white border-0">
+                            <h5 class="mb-0">Recent Notifications</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="activity-item mb-3">
+                                <div class="d-flex">
+                                    <div class="me-3 text-success">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <div>
+                                        <p class="mb-0">Your bid on Steel Coils is now leading</p>
+                                        <small class="text-muted">Today, 10:30 AM</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="activity-item mb-3">
+                                <div class="d-flex">
+                                    <div class="me-3 text-primary">
+                                        <i class="fas fa-truck"></i>
+                                    </div>
+                                    <div>
+                                        <p class="mb-0">Order #AGB-10045 has shipped</p>
+                                        <small class="text-muted">Yesterday, 3:45 PM</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="d-flex">
+                                    <div class="me-3 text-warning">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                    </div>
+                                    <div>
+                                        <p class="mb-0">Supplier counteroffer on Ceramic Tiles</p>
+                                        <small class="text-muted">Yesterday, 9:15 AM</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center mt-3">
+                                <a href="#" class="btn btn-sm btn-link">View All Notifications</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        const body = document.querySelector('body'),
+              sidebar = body.querySelector('nav'),
+              toggle = body.querySelector('.toggle'),
+              searchBtn = body.querySelector('.search-box'),
+              modeSwitch = body.querySelector('.toggle-switch'),
+              modeText = body.querySelector('.mode-text');
+        toggle.addEventListener('click', () => sidebar.classList.toggle('close'));
+        searchBtn.addEventListener('click', () => sidebar.classList.remove('close'));
+        modeSwitch.addEventListener('click', () => {
+            body.classList.toggle('dark');
+            modeText.innerText = body.classList.contains('dark') ? 'Light mode' : 'Dark mode';
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

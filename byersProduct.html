@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Card</title>
+     <!-- Bootstrap CSS -->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+     <!-- Font Awesome CSS -->
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+     <!-- External CSS -->
+     <link href="style.css" rel="stylesheet" />
+      <!-- Favicon -->
+      <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/favicon.svg" />
+      <link rel="stylesheet" href="assets/css/plugins/animate.min.css" />
+     <!-- <link rel="stylesheet" href="assets/css/main.css?v=6.1" /> -->
+     <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+     <link rel="stylesheet" href="css/Style.css" />
+    <style>
+    :root {
+            --primary-color: #28a745;
+            --secondary-color: #6c757d;
+            --dark-color: #343a40;
+            --light-color: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+        }
+        
+        .filter-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .filter-section h4 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .filter-group {
+            margin-bottom: 15px;
+        }
+        
+        .filter-group label {
+            font-weight: 500;
+            margin-bottom: 5px;
+            display: block;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .product-img {
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .product-card:hover .product-img img {
+            transform: scale(1.05);
+        }
+        
+        .time-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .product-content {
+            padding: 15px;
+        }
+        
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+        
+        .farmer-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .farmer-name {
+            font-weight: 500;
+            margin-right: 10px;
+        }
+        
+        .farmer-rating {
+            color: #ffc107;
+            font-size: 0.9rem;
+        }
+        
+        .price-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .asked-price {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .highest-bid {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+        }
+        
+        .units-available {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+        
+        .bid-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .bid-input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        .bid-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .bid-btn:hover {
+            background: #218838;
+        }
+        
+        .pagination {
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .page-item.active .page-link {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .page-link {
+            color: var(--primary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .product-card {
+                margin-bottom: 20px;
+            }
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            width: 350px;
+            background-color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+
+        .countdown div {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .rating {
+            margin: 5px 0;
+        }
+
+        .price {
+            font-size: 20px;
+            color: #28a745;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .unit {
+            font-size: 14px;
+            color: #777;
+        }
+
+        .bid-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .bid-container input {
+            width: 80px;
+            padding: 5px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .bid-btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .bid-btn:hover {
+            background-color: #0056b3;
+        }
+        .sidebar.close ~ .main-content { margin-left: var(--sidebar-collapsed-width); }
+        /* Main Content Styles */
+        .main-content {
+            position: relative;
+            min-height: 100vh;
+            margin-left: var(--sidebar-width);
+            transition: all 0.5s ease;
+        }
+
+        .sidebar.close ~ .main-content {
+            margin-left: var(--sidebar-collapsed-width);
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        body.dark .filter-section {
+            background: #1e1e1e;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .filter-section h5 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .filter-group {
+            margin-bottom: 1rem;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        /* Product Card Styles */
+        .product-card {
+            background: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        body.dark .product-card {
+            background: #1e1e1e;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-img {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover .product-img img {
+            transform: scale(1.05);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .product-content {
+            padding: 1rem;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        body.dark .product-title {
+            color: #f8f9fa;
+        }
+
+        .product-seller {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-rating .stars {
+            color: #ffc107;
+            margin-right: 0.5rem;
+        }
+
+        .product-rating .count {
+            font-size: 0.8rem;
+            color: var(--secondary-color);
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-stock {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .bid-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .bid-input-group {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            margin-right: 1rem;
+        }
+
+        .bid-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .bid-btn:hover {
+            background: #218838;
+        }
+
+        .bid-input {
+            width: 100%;
+            padding: 0.375rem 0.75rem;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            text-align: center;
+            margin: 0 0.5rem;
+        }
+
+        .bid-submit {
+            width: 100%;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            padding: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .bid-submit:hover {
+            background: #218838;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: space-between;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .countdown-item {
+            text-align: center;
+        }
+
+        .countdown-value {
+            font-weight: 700;
+        }
+
+        .countdown-label {
+            font-size: 0.7rem;
+            opacity: 0.8;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: var(--sidebar-collapsed-width);
+            }
+            
+            .sidebar .text {
+                opacity: 0;
+                pointer-events: none;
+            }
+            
+            .main-content {
+                margin-left: var(--sidebar-collapsed-width);
+            }
+            
+            .sidebar.close {
+                width: 0;
+            }
+            
+            .sidebar.close ~ .main-content {
+                margin-left: 0;
+            }
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 1.5rem 0;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        body.dark .page-header {
+            border-bottom-color: #444;
+        }
+
+        .page-title {
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 0;
+        }
+
+        body.dark .page-title {
+            color: #f8f9fa;
+        }
+
+        /* Section Title */
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title h3 {
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 0;
+        }
+
+        body.dark .section-title h3 {
+            color: #f8f9fa;
+        }
+
+        .show-all {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .show-all:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <nav class="sidebar close">
+        <header>
+            <div class="image-text">
+                <div class="text logo-text"><span class="name">AgriBid</span></div>
+            </div>
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
+        <div class="menu-bar">
+            <div class="menu">
+                <li class="search-box"><i class='bx bx-search icon'></i><input type="text" placeholder="Search..."></li>
+                <ul class="menu-links" style="padding-left: 0;">
+                    <li class="nav-link">
+                        <a  href="buyerDashboard.html">
+                            <i class='bx bx-home-alt icon'></i>
+                            <span class="text nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-link"><a  class="active"href="byersProduct.html"><i class='bx bx-store-alt icon'></i><span class="text nav-text">Browse Products</span></a></li>
+                    <li class="nav-link"><a href="byerOrders.html"><i class='fas fa-shopping-bag icon'></i><span class="text nav-text">My Orders</span></a></li>
+                    <li class="nav-link"><a href="buyerNotifications.html"><i class='bx bx-bell icon'></i><span class="text nav-text">Notifications</span></a></li>
+                    <li class="nav-link"><a href="buyerAnalytics.html"><i class='bx bx-pie-chart-alt icon'></i><span class="text nav-text">Analytics</span></a></li>
+                    <li class="nav-link"><a href="#"><i class='bx bx-wallet icon'></i><span class="text nav-text">Wallets</span></a></li>
+                </ul>
+            </div>
+            <div class="bottom-content">
+                <li><a href="#"><i class='bx bx-log-out icon'></i><span class="text nav-text">Logout</span></a></li>
+                <li class="mode"><div class="sun-moon"><i class='bx bx-moon icon moon'></i><i class='bx bx-sun icon sun'></i></div><span class="mode-text text">Dark mode</span><div class="toggle-switch"><span class="switch"></span></div></li>
+            </div>
+        </div>
+    </nav>
+<section class="home" style="padding-left: 30px; padding-right: 30px;">
+        <div class="text">Biddig Products</div>
+        <div class="filter-section">
+            <h4>Filter Products</h4>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="filter-group">
+                        <label for="category">Category</label>
+                        <select id="category" class="form-select">
+                            <option value="all">All Categories</option>
+                            <option value="vegetables">Vegetables</option>
+                            <option value="fruits">Fruits</option>
+                            <option value="grains">Grains</option>
+                            <option value="dairy">Dairy</option>
+                            <option value="meat">Meat & Poultry</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="filter-group">
+                        <label for="price-range">Price Range</label>
+                        <input type="range" class="form-range" id="price-range" min="0" max="1000" step="10" value="1000">
+                        <div class="d-flex justify-content-between">
+                            <span>৳0</span>
+                            <span>৳<span id="price-value">1000</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="filter-group">
+                        <label for="time-left">Time Left</label>
+                        <select id="time-left" class="form-select">
+                            <option value="all">Any Time</option>
+                            <option value="1h">Less than 1 hour</option>
+                            <option value="6h">Less than 6 hours</option>
+                            <option value="24h">Less than 24 hours</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="filter-group">
+                        <label for="rating">Minimum Rating</label>
+                        <select id="rating" class="form-select">
+                            <option value="0">Any Rating</option>
+                            <option value="3">3+ Stars</option>
+                            <option value="4">4+ Stars</option>
+                            <option value="5">5 Stars</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12 d-flex justify-content-end">
+                    <button id="apply-filters" class="btn btn-primary me-2">Apply Filters</button>
+                    <button id="reset-filters" class="btn btn-outline-secondary">Reset</button>
+                </div>
+            </div>
+        </div>
+        
+        
+        <!-- Products Grid -->
+        <div class="row" id="products-grid">
+            <!-- Product cards will be loaded here -->
+        </div>
+        
+        <!-- Pagination -->
+        <nav aria-label="Page navigation">
+            <ul class="pagination" id="pagination">
+                <!-- Pagination will be loaded here -->
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Product Card Template (Hidden) -->
+    <template id="product-card-template">
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="" alt="Product Image" class="product-image">
+                    <div class="time-badge"></div>
+                </div>
+                <div class="product-content">
+                    <h5 class="product-title"></h5>
+                    <div class="farmer-info">
+                        <span class="farmer-name"></span>
+                        <span class="farmer-rating"></span>
+                    </div>
+                    <div class="price-info">
+                        <span class="asked-price"></span>
+                        <span class="highest-bid"></span>
+                    </div>
+                    <div class="units-available"></div>
+                    <div class="bid-controls">
+                        <input type="number" class="bid-input" min="0" placeholder="Your bid">
+                        <button class="bid-btn">Bid</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+            <!-- <div class="row">
+                
+                <div class="col-lg-3">
+                    <div class="filter-section">
+                        <h5>Filter Products</h5>
+                        
+                        <div class="filter-group">
+                            <label for="category">Category</label>
+                            <select id="category" class="form-select">
+                                <option selected>All Categories</option>
+                                <option>Fruits</option>
+                                <option>Vegetables</option>
+                                <option>Grains</option>
+                                <option>Dairy</option>
+                                <option>Meat</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="price-range">Price Range</label>
+                            <input type="range" class="form-range" id="price-range" min="0" max="1000" step="10">
+                            <div class="d-flex justify-content-between">
+                                <span>৳0</span>
+                                <span>৳1000</span>
+                            </div>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label>Time Remaining</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="ending-soon" checked>
+                                <label class="form-check-label" for="ending-soon">Ending Soon</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="new-listings" checked>
+                                <label class="form-check-label" for="new-listings">New Listings</label>
+                            </div>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label>Rating</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="rating-5" checked>
+                                <label class="form-check-label" for="rating-5">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="rating-4" checked>
+                                <label class="form-check-label" for="rating-4">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="far fa-star text-warning"></i>
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="rating-3" checked>
+                                <label class="form-check-label" for="rating-3">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="far fa-star text-warning"></i>
+                                    <i class="far fa-star text-warning"></i>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-primary w-100 mt-2">Apply Filters</button>
+                        <button class="btn btn-outline-secondary w-100 mt-2">Reset Filters</button>
+                    </div>
+                </div>
+             
+<div class="col-xl-4 col-lg-6 col-md-6">
+    <div class="product-card animate__animated animate__fadeIn">
+        <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Organic Quinoa">
+            <span class="product-badge">Hot Bid</span>
+        </div>
+        <div class="product-content">
+            <h3 class="product-title">Organic Quinoa, Brown & Red Rice</h3>
+            <p class="product-seller">By NestFood</p>
+            <div class="product-rating">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                </div>
+                <span class="count">(24)</span>
+            </div>
+            <div class="product-price">৳32.85</div>
+            <p class="product-stock">Available: <span class="stock-value">30</span> units</p>
+            
+            <div class="bid-controls">
+                <div class="bid-input-group">
+                    <button class="bid-btn minus"><i class="fas fa-minus"></i></button>
+                    <input type="number" class="bid-input" value="1" min="1" max="30">
+                    <button class="bid-btn plus"><i class="fas fa-plus"></i></button>
+                </div>
+                <button class="bid-btn"><i class="fas fa-gavel"></i></button>
+            </div>
+            
+            <div class="countdown" data-countdown="2025/03/25 00:00:00">
+                <div class="countdown-item">
+                    <div class="countdown-value days">12</div>
+                    <div class="countdown-label">Days</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value hours">06</div>
+                    <div class="countdown-label">Hours</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value minutes">45</div>
+                    <div class="countdown-label">Mins</div>
+                </div>
+            </div>
+            
+            <button class="bid-submit mt-2">Place Bid</button>
+        </div>
+    </div>
+</div>
+
+<div class="col-xl-4 col-lg-6 col-md-6">
+    <div class="product-card">
+      <div class="product-img">
+        <img src="https://images.unsplash.com/photo-1601493700631-2b16ec4b4716" alt="Organic Quinoa">
+        <span class="product-badge">Ending Soon</span>
+      </div>
+      
+      <div class="product-content">
+        <h3 class="product-title">Premium Organic Quinoa (1kg)</h3>
+        <p class="product-seller">By FarmFresh Organics</p>
+        
+        <div class="product-rating">
+          <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+          <span class="count">(128 reviews)</span>
+        </div>
+        
+        <div class="product-price">৳45.99</div>
+        <p class="product-stock">Available: 25 units</p>
+        
+        
+        <div class="countdown-timer">
+          <h5>Auction Ends In:</h5>
+          <div class="timer-container">
+            <div class="timer-box">
+              <span class="timer-value days">00</span>
+              <span class="timer-label">Days</span>
+            </div>
+            <div class="timer-box">
+              <span class="timer-value hours">00</span>
+              <span class="timer-label">Hours</span>
+            </div>
+            <div class="timer-box">
+              <span class="timer-value minutes">00</span>
+              <span class="timer-label">Minutes</span>
+            </div>
+            <div class="timer-box">
+              <span class="timer-value seconds">00</span>
+              <span class="timer-label">Seconds</span>
+            </div>
+          </div>
+        </div>
+        
+        <button class="bid-now-btn">Place Bid Now</button>
+      </div>
+    </div>
+  </div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Quantity controls
+    const minusBtn = document.querySelector('.minus');
+    const plusBtn = document.querySelector('.plus');
+    const bidInput = document.querySelector('.bid-input');
+    const stockValue = document.querySelector('.stock-value');
+    const maxStock = parseInt(stockValue.textContent);
+    
+    minusBtn.addEventListener('click', function() {
+        let currentValue = parseInt(bidInput.value);
+        if (currentValue > 1) {
+            bidInput.value = currentValue - 1;
+        }
+    });
+    
+    plusBtn.addEventListener('click', function() {
+        let currentValue = parseInt(bidInput.value);
+        if (currentValue < maxStock) {
+            bidInput.value = currentValue + 1;
+        }
+    });
+    
+    bidInput.addEventListener('change', function() {
+        let value = parseInt(this.value);
+        if (isNaN(value) || value < 1) {
+            this.value = 1;
+        } else if (value > maxStock) {
+            this.value = maxStock;
+        }
+    });
+    
+    // Countdown timer
+    function updateCountdown() {
+        const countdownElement = document.querySelector('.countdown');
+        const endDate = new Date(countdownElement.getAttribute('data-countdown')).getTime();
+        const now = new Date().getTime();
+        const distance = endDate - now;
+        
+        if (distance < 0) {
+            clearInterval(countdownInterval);
+            countdownElement.innerHTML = '<div class="text-center w-100">Bidding Ended</div>';
+            document.querySelector('.bid-submit').disabled = true;
+            return;
+        }
+        
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        
+        document.querySelector('.days').textContent = days.toString().padStart(2, '0');
+        document.querySelector('.hours').textContent = hours.toString().padStart(2, '0');
+        document.querySelector('.minutes').textContent = minutes.toString().padStart(2, '0');
+    }
+    
+    const countdownInterval = setInterval(updateCountdown, 1000);
+    updateCountdown(); // Initial call
+    
+    // Place bid functionality
+    const bidSubmit = document.querySelector('.bid-submit');
+    bidSubmit.addEventListener('click', function() {
+        const quantity = parseInt(bidInput.value);
+        const price = parseFloat(document.querySelector('.product-price').textContent.replace('৳', ''));
+        const total = quantity * price;
+        
+        Swal.fire({
+            title: 'Confirm Your Bid',
+            html: `You are bidding for <b>${quantity}</b> units of <b>Organic Quinoa, Brown & Red Rice</b> at <b>৳${price.toFixed(2)}</b> per unit<br><br>Total Bid Amount: <b>৳${total.toFixed(2)}</b>`,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Place Bid',
+            cancelButtonText: 'Cancel',
+            confirmButtonColor: '#28a745'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Bid Placed!',
+                    'Your bid has been successfully placed.',
+                    'success'
+                );
+                // Here you would typically send the bid to your backend
+            }
+        });
+    });
+    
+    // Toggle bid history (would be connected to actual bid history data)
+    const gavelBtn = document.querySelector('.bid-btn:not(.plus):not(.minus)');
+    gavelBtn.addEventListener('click', function() {
+        Swal.fire({
+            title: 'Bid History',
+            html: `
+                <div class="text-start">
+                    <p><strong>Current Highest Bid:</strong> ৳35.20 (by Farmer123)</p>
+                    <p><strong>Your Last Bid:</strong> ৳32.85</p>
+                    <hr>
+                    <p><strong>Bid History:</strong></p>
+                    <ul class="list-unstyled">
+                        <li>৳35.20 - Farmer123 (2 hours ago)</li>
+                        <li>৳34.50 - AgriBuyer (5 hours ago)</li>
+                        <li>৳32.85 - You (1 day ago)</li>
+                        <li>৳30.00 - OrganicLover (2 days ago)</li>
+                    </ul>
+                </div>
+            `,
+            confirmButtonText: 'Close',
+            confirmButtonColor: '#28a745'
+        });
+    });
+});
+</script>
+        </div> -->
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // Sample product data
+        const products = [
+            {
+                id: 1,
+                title: "Organic Tomatoes (1kg)",
+                image:"https://th.bing.com/th/id/OIP.ohq0jt-ms7XNx04WALUjcQHaEK?rs=1&pid=ImgDetMain",
+                timeLeft: "45m 30s",
+                farmer: "Green Valley Farms",
+                rating: "★★★★☆ (4.2)",
+                askedPrice: "৳45.00",
+                highestBid: "Highest: ৳48.50",
+                units: "Available: 20 units",
+                minBid: 49,
+                category: "vegetables",
+                price: 45,
+                endTime: "2023-12-15T14:30:00",
+                farmerRating: 4.2
+            },
+            {
+                id: 2,
+                title: "Fresh Strawberries (500g)",
+                image: "https://images.unsplash.com/photo-1464965911861-746a04b4bca6",
+                timeLeft: "1h 15m",
+                farmer: "Berry Good Farms",
+                rating: "★★★★★ (4.8)",
+                askedPrice: "৳75.00",
+                highestBid: "Highest: ৳78.00",
+                units: "Available: 15 units",
+                minBid: 79,
+                category: "fruits",
+                price: 75,
+                endTime: "2023-12-15T15:00:00",
+                farmerRating: 4.8
+            },
+            // Add 6 more sample products...
+            {
+                id: 3,
+                title: "Premium Basmati Rice (5kg)",
+                image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c",
+                timeLeft: "3h 20m",
+                farmer: "Golden Grains Co.",
+                rating: "★★★★☆ (4.0)",
+                askedPrice: "৳120.00",
+                highestBid: "Highest: ৳125.00",
+                units: "Available: 10 units",
+                minBid: 126,
+                category: "grains",
+                price: 120,
+                endTime: "2023-12-15T17:00:00",
+                farmerRating: 4.0
+            },
+            {
+                id: 4,
+                title: "Free Range Eggs (Dozen)",
+                image: "https://images.unsplash.com/photo-1587486913049-53fc88980cfc",
+                timeLeft: "6h 45m",
+                farmer: "Happy Hens Farm",
+                rating: "★★★★★ (4.9)",
+                askedPrice: "৳65.00",
+                highestBid: "Highest: ৳68.00",
+                units: "Available: 30 units",
+                minBid: 69,
+                category: "dairy",
+                price: 65,
+                endTime: "2023-12-15T20:30:00",
+                farmerRating: 4.9
+            },
+            {
+                id: 5,
+                title: "Organic Potatoes (2kg)",
+                image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655",
+                timeLeft: "12h 10m",
+                farmer: "Roots & Shoots",
+                rating: "★★★☆☆ (3.5)",
+                askedPrice: "৳35.00",
+                highestBid: "Highest: ৳36.50",
+                units: "Available: 25 units",
+                minBid: 37,
+                category: "vegetables",
+                price: 35,
+                endTime: "2023-12-16T02:00:00",
+                farmerRating: 3.5
+            },
+            {
+                id: 6,
+                title: "Fresh Chicken (Whole, 1.5kg)",
+                image: "https://images.unsplash.com/photo-1544025162-d76694265947",
+                timeLeft: "18h 30m",
+                farmer: "Pure Poultry",
+                rating: "★★★★☆ (4.3)",
+                askedPrice: "৳180.00",
+                highestBid: "Highest: ৳185.00",
+                units: "Available: 8 units",
+                minBid: 186,
+                category: "meat",
+                price: 180,
+                endTime: "2023-12-16T08:30:00",
+                farmerRating: 4.3
+            },
+            {
+                id: 7,
+                title: "Organic Milk (1 Liter)",
+                image: "https://images.unsplash.com/photo-1518492104633-130d0cc84637",
+                timeLeft: "22h 15m",
+                farmer: "Dairy Delight",
+                rating: "★★★★☆ (4.1)",
+                askedPrice: "৳55.00",
+                highestBid: "Highest: ৳57.00",
+                units: "Available: 12 units",
+                minBid: 58,
+                category: "dairy",
+                price: 55,
+                endTime: "2023-12-16T12:30:00",
+                farmerRating: 4.1
+            },
+            {
+                id: 8,
+                title: "Organic Bananas (1kg)",
+                image: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e",
+                timeLeft: "1d 2h",
+                farmer: "Tropical Fruits",
+                rating: "★★★★★ (4.7)",
+                askedPrice: "৳40.00",
+                highestBid: "Highest: ৳42.00",
+                units: "Available: 18 units",
+                minBid: 43,
+                category: "fruits",
+                price: 40,
+                endTime: "2023-12-16T14:00:00",
+                farmerRating: 4.7
+            },
+            // Additional products for pagination...
+            {
+                id: 9,
+                title: "Organic Carrots (1kg)",
+                image: "https://images.unsplash.com/photo-1447175008436-054170c2e979",
+                timeLeft: "1d 6h",
+                farmer: "Veggie Masters",
+                rating: "★★★★☆ (4.0)",
+                askedPrice: "৳30.00",
+                highestBid: "Highest: ৳32.00",
+                units: "Available: 22 units",
+                minBid: 33,
+                category: "vegetables",
+                price: 30,
+                endTime: "2023-12-16T18:00:00",
+                farmerRating: 4.0
+            },
+            {
+                id: 10,
+                title: "Fresh Mangoes (1kg)",
+                image: "https://images.unsplash.com/photo-1553279768-865429fa0078",
+                timeLeft: "1d 12h",
+                farmer: "Mango Valley",
+                rating: "★★★★★ (4.9)",
+                askedPrice: "৳90.00",
+                highestBid: "Highest: ৳95.00",
+                units: "Available: 10 units",
+                minBid: 96,
+                category: "fruits",
+                price: 90,
+                endTime: "2023-12-17T00:00:00",
+                farmerRating: 4.9
+            }
+        ];
+
+        // Current page and items per page
+        let currentPage = 1;
+        const itemsPerPage = 8;
+        let filteredProducts = [...products];
+
+        // DOM elements
+        const productsGrid = document.getElementById('products-grid');
+        const pagination = document.getElementById('pagination');
+        const priceRange = document.getElementById('price-range');
+        const priceValue = document.getElementById('price-value');
+        const applyFiltersBtn = document.getElementById('apply-filters');
+        const resetFiltersBtn = document.getElementById('reset-filters');
+        const template = document.getElementById('product-card-template');
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            displayProducts();
+            setupPagination();
+            
+            // Price range display
+            priceRange.addEventListener('input', function() {
+                priceValue.textContent = this.value;
+            });
+            
+            // Apply filters
+            applyFiltersBtn.addEventListener('click', function() {
+                applyFilters();
+            });
+            
+            // Reset filters
+            resetFiltersBtn.addEventListener('click', function() {
+                document.getElementById('category').value = 'all';
+                document.getElementById('price-range').value = 1000;
+                priceValue.textContent = '1000';
+                document.getElementById('time-left').value = 'all';
+                document.getElementById('rating').value = '0';
+                applyFilters();
+            });
+        });
+
+        // Display products based on current page
+        function displayProducts() {
+            productsGrid.innerHTML = '';
+            
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const productsToDisplay = filteredProducts.slice(startIndex, endIndex);
+            
+            if (productsToDisplay.length === 0) {
+                productsGrid.innerHTML = '<div class="col-12 text-center py-5"><h4>No products found matching your filters</h4></div>';
+                return;
+            }
+            
+            productsToDisplay.forEach(product => {
+                const card = template.content.cloneNode(true);
+                
+                card.querySelector('.product-image').src = product.image;
+                card.querySelector('.product-image').alt = product.title;
+                card.querySelector('.time-badge').textContent = product.timeLeft;
+                card.querySelector('.product-title').textContent = product.title;
+                card.querySelector('.farmer-name').textContent = product.farmer;
+                card.querySelector('.farmer-rating').textContent = product.rating;
+                card.querySelector('.asked-price').textContent = product.askedPrice;
+                card.querySelector('.highest-bid').textContent = product.highestBid;
+                card.querySelector('.units-available').textContent = product.units;
+                card.querySelector('.bid-input').min = product.minBid;
+                card.querySelector('.bid-input').placeholder = `৳${product.minBid} (min bid)`;
+                
+                // Add bid button functionality
+                const bidBtn = card.querySelector('.bid-btn');
+                bidBtn.addEventListener('click', function() {
+                    const input = this.previousElementSibling;
+                    const bidAmount = parseFloat(input.value);
+                    
+                    if (isNaN(bidAmount) || bidAmount < product.minBid) {
+                        Swal.fire({
+                            title: 'Invalid Bid',
+                            text: `Your bid must be at least ৳${product.minBid}`,
+                            icon: 'error'
+                        });
+                        return;
+                    }
+                    
+                    Swal.fire({
+                        title: 'Confirm Your Bid',
+                        html: `You are bidding <b>৳${bidAmount.toFixed(2)}</b> on<br><b>${product.title}</b>`,
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonText: 'Place Bid',
+                        cancelButtonText: 'Cancel',
+                        confirmButtonColor: '#28a745'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire(
+                                'Bid Placed!',
+                                `Your bid of ৳${bidAmount.toFixed(2)} has been submitted.`,
+                                'success'
+                            );
+                            // In a real app, you would send this to your backend
+                        }
+                    });
+                });
+                
+                productsGrid.appendChild(card);
+            });
+        }
+
+        // Setup pagination
+        function setupPagination() {
+            pagination.innerHTML = '';
+            const pageCount = Math.ceil(filteredProducts.length / itemsPerPage);
+            
+            if (pageCount <= 1) return;
+            
+            // Previous button
+            const prevLi = document.createElement('li');
+            prevLi.className = `page-item ${currentPage === 1 ? 'disabled' : ''}`;
+            prevLi.innerHTML = '<a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>';
+            prevLi.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (currentPage > 1) {
+                    currentPage--;
+                    displayProducts();
+                    setupPagination();
+                    window.scrollTo({top: 0, behavior: 'smooth'});
+                }
+            });
+            pagination.appendChild(prevLi);
+            
+            // Page numbers
+            for (let i = 1; i <= pageCount; i++) {
+                const li = document.createElement('li');
+                li.className = `page-item ${i === currentPage ? 'active' : ''}`;
+                li.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+                li.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    currentPage = i;
+                    displayProducts();
+                    setupPagination();
+                    window.scrollTo({top: 0, behavior: 'smooth'});
+                });
+                pagination.appendChild(li);
+            }
+            
+            // Next button
+            const nextLi = document.createElement('li');
+            nextLi.className = `page-item ${currentPage === pageCount ? 'disabled' : ''}`;
+            nextLi.innerHTML = '<a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>';
+            nextLi.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (currentPage < pageCount) {
+                    currentPage++;
+                    displayProducts();
+                    setupPagination();
+                    window.scrollTo({top: 0, behavior: 'smooth'});
+                }
+            });
+            pagination.appendChild(nextLi);
+        }
+
+        // Apply filters
+        function applyFilters() {
+            const category = document.getElementById('category').value;
+            const maxPrice = parseFloat(document.getElementById('price-range').value);
+            const timeLeft = document.getElementById('time-left').value;
+            const minRating = parseFloat(document.getElementById('rating').value);
+            
+            filteredProducts = products.filter(product => {
+                // Category filter
+                if (category !== 'all' && product.category !== category) {
+                    return false;
+                }
+                
+                // Price filter
+                if (product.price > maxPrice) {
+                    return false;
+                }
+                
+                // Time left filter (simplified for demo)
+                if (timeLeft !== 'all') {
+                    if (timeLeft === '1h' && !product.timeLeft.includes('m')) {
+                        return false;
+                    }
+                    if (timeLeft === '6h' && (product.timeLeft.includes('d') || parseInt(product.timeLeft) > 6)) {
+                        return false;
+                    }
+                    if (timeLeft === '24h' && product.timeLeft.includes('d')) {
+                        return false;
+                    }
+                }
+                
+                // Rating filter
+                if (minRating > 0 && product.farmerRating < minRating) {
+                    return false;
+                }
+                
+                return true;
+            });
+            
+            currentPage = 1;
+            displayProducts();
+            setupPagination();
+        }
+    </script>
+    <script>// Filter functionality
+        document.querySelector('.apply-filters').addEventListener('click', function() {
+          const category = document.getElementById('category-filter').value;
+          const location = document.getElementById('location-filter').value;
+          const time = document.getElementById('time-filter').value;
+          
+          // Here you would typically make an API call with these filter parameters
+          console.log('Filters applied:', {category, location, time});
+        });
+        
+        // Pagination functionality
+        document.querySelectorAll('.page-btn').forEach(btn => {
+          btn.addEventListener('click', function() {
+            document.querySelector('.page-btn.active').classList.remove('active');
+            this.classList.add('active');
+            // Load new page of products
+          });
+        });
+        
+        // Next page button
+        document.querySelector('.next-btn').addEventListener('click', function() {
+          const activePage = document.querySelector('.page-btn.active');
+          const nextPage = activePage.nextElementSibling;
+          
+          if(nextPage && nextPage.classList.contains('page-btn')) {
+            activePage.classList.remove('active');
+            nextPage.classList.add('active');
+            // Load next page of products
+          }
+        });
+        
+        // Bid placement
+        document.querySelectorAll('.place-bid').forEach(btn => {
+          btn.addEventListener('click', function() {
+            const card = this.closest('.product-card');
+            const bidAmount = card.querySelector('input[type="number"]').value;
+            const quantity = card.querySelector('input[type="number"]:nth-of-type(2)').value;
+            
+            if(bidAmount && quantity) {
+              alert(`Bid placed: ₹${bidAmount}/kg for ${quantity}kg`);
+              // Here you would typically make an API call to place the bid
+            } else {
+              alert('Please enter both bid amount and quantity');
+            }
+          });
+        });</script>
+    
+    <script>
+        const body = document.querySelector('body'),
+              sidebar = body.querySelector('nav'),
+              toggle = body.querySelector('.toggle'),
+              searchBtn = body.querySelector('.search-box'),
+              modeSwitch = body.querySelector('.toggle-switch'),
+              modeText = body.querySelector('.mode-text');
+        toggle.addEventListener('click', () => sidebar.classList.toggle('close'));
+        searchBtn.addEventListener('click', () => sidebar.classList.remove('close'));
+        modeSwitch.addEventListener('click', () => {
+            body.classList.toggle('dark');
+            modeText.innerText = body.classList.contains('dark') ? 'Light mode' : 'Dark mode';
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
+</body>
+
+</body>
+</html>

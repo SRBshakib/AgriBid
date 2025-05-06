@@ -881,5 +881,177 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Document ready function
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize carousel with auto-rotation
+        const myCarousel = new bootstrap.Carousel(document.getElementById('mainCarousel'), {
+            interval: 5000, // Rotate every 5 seconds
+            wrap: true
+        });
+
+        // Quantity increment/decrement for bidding products
+        document.querySelectorAll('.input-group .btn-outline-secondary').forEach(button => {
+            button.addEventListener('click', function() {
+                const input = this.parentNode.querySelector('input[type=number]');
+                if (this.textContent === '+') {
+                    input.stepUp();
+                } else {
+                    input.stepDown();
+                }
+            });
+        });
+
+        // Cart counter functionality
+        const cartButtons = document.querySelectorAll('.btn-success.btn-sm:not([disabled])');
+        const cartBadge = document.querySelector('.navbar-nav .badge');
+        let cartCount = 0;
+
+        cartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                cartCount++;
+                cartBadge.textContent = cartCount;
+                
+                // Add animation
+                this.innerHTML = '<i class="fas fa-check"></i>';
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-cart-plus"></i>';
+                }, 1000);
+            });
+        });
+
+        // Bid button functionality
+        document.querySelectorAll('.bid-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const productName = this.closest('.product-details').querySelector('h5').textContent;
+                alert(`Your bid for ${productName} has been placed successfully!`);
+            });
+        });
+
+        // Reserve now button functionality
+        document.querySelectorAll('.btn-primary.w-100').forEach(button => {
+            button.addEventListener('click', function() {
+                const productName = this.closest('.product-details').querySelector('h5').textContent;
+                const advanceSelect = this.closest('.product-details').querySelector('.advance-select');
+                const advancePercent = advanceSelect.options[advanceSelect.selectedIndex].text.split('%')[0];
+                
+                alert(`You've reserved ${productName} with ${advancePercent}% advance payment!`);
+            });
+        });
+
+        // Newsletter subscription
+        const newsletterForm = document.querySelector('.input-group.mb-3');
+        if(newsletterForm) {
+            newsletterForm.querySelector('button').addEventListener('click', function() {
+                const email = newsletterForm.querySelector('input').value;
+                if(email && email.includes('@')) {
+                    alert('Thank you for subscribing to our newsletter!');
+                    newsletterForm.querySelector('input').value = '';
+                } else {
+                    alert('Please enter a valid email address.');
+                }
+            });
+        }
+
+        // Sort functionality
+        const sortSelect = document.getElementById('sortSelect');
+        if(sortSelect) {
+            sortSelect.addEventListener('change', function() {
+                alert(`Products will be sorted by: ${this.options[this.selectedIndex].text}`);
+                // In a real app, you would reload products with the new sort order
+            });
+        }
+
+        // Pagination functionality
+        document.querySelectorAll('.pagination .page-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const currentActive = document.querySelector('.pagination .active');
+                if(currentActive) {
+                    currentActive.classList.remove('active');
+                }
+                this.parentElement.classList.add('active');
+                alert(`Loading page ${this.textContent.trim()}`);
+                // In a real app, you would load the corresponding page
+            });
+        });
+
+        // Load more functionality
+        const loadMoreBtn = document.querySelector('.btn-warning.mt-3');
+        if(loadMoreBtn) {
+            loadMoreBtn.addEventListener('click', function() {
+                alert('Loading more products...');
+                // In a real app, you would fetch and append more products
+            });
+        }
+
+        // Mobile menu toggle enhancement
+        const navbarToggler = document.querySelector('.navbar-toggler');
+        if(navbarToggler) {
+            navbarToggler.addEventListener('click', function() {
+                document.body.classList.toggle('mobile-menu-open');
+            });
+        }
+
+        // Countdown timers for bidding products
+        function updateCountdowns() {
+            document.querySelectorAll('.bid-timer').forEach(timer => {
+                const timeText = timer.textContent.match(/(\d{2}):(\d{2}):(\d{2})/);
+                if(timeText) {
+                    let hours = parseInt(timeText[1]);
+                    let minutes = parseInt(timeText[2]);
+                    let seconds = parseInt(timeText[3]);
+                    
+                    seconds--;
+                    if(seconds < 0) {
+                        seconds = 59;
+                        minutes--;
+                        if(minutes < 0) {
+                            minutes = 59;
+                            hours--;
+                            if(hours < 0) {
+                                timer.innerHTML = '<i class="fas fa-clock me-1"></i> Bidding Ended';
+                                timer.classList.add('bg-danger');
+                                timer.classList.remove('bg-warning');
+                                return;
+                            }
+                        }
+                    }
+                    
+                    const newTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                    timer.innerHTML = `<i class="fas fa-clock me-1"></i> ${newTime} Left`;
+                }
+            });
+        }
+        
+        // Update countdown every second
+        setInterval(updateCountdowns, 1000);
+    });
+
+    // Add to cart animation
+    function addToCartAnimation(button) {
+        const cartIcon = document.querySelector('.fa-shopping-cart');
+        const buttonRect = button.getBoundingClientRect();
+        const cartRect = cartIcon.getBoundingClientRect();
+        
+        const animation = document.createElement('div');
+        animation.className = 'add-to-cart-animation';
+        animation.innerHTML = '<i class="fas fa-leaf"></i>';
+        animation.style.left = `${buttonRect.left}px`;
+        animation.style.top = `${buttonRect.top}px`;
+        document.body.appendChild(animation);
+        
+        setTimeout(() => {
+            animation.style.left = `${cartRect.left}px`;
+            animation.style.top = `${cartRect.top}px`;
+            animation.style.opacity = '0';
+            animation.style.transform = 'scale(0.5)';
+        }, 10);
+        
+        setTimeout(() => {
+            animation.remove();
+        }, 1000);
+    }
+</script>
 </body>
 </html>

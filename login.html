@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriPortal - Login</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), 
+                              url('farm-background.jpg');
+            background-size: cover;
+        }
+        
+        .login-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            width: 400px;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .logo {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: #2e7d32;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+        
+        .user-type-selector {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        
+        .user-type-btn {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            cursor: pointer;
+            border-radius: 5px;
+            flex: 1;
+            margin: 0 5px;
+            transition: all 0.3s;
+        }
+        
+        .user-type-btn.active {
+            background-color: #2e7d32;
+            color: white;
+            border-color: #2e7d32;
+        }
+        
+        .user-type-btn:hover {
+            background-color: #e8f5e9;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #2e7d32;
+            box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.2);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .login-btn:hover {
+            background-color: #1b5e20;
+        }
+        
+        .forgot-password {
+            display: block;
+            margin-top: 15px;
+            color: #2e7d32;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+        
+        .divider {
+            margin: 20px 0;
+            border-top: 1px solid #eee;
+            position: relative;
+        }
+        
+        .divider-text {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            padding: 0 10px;
+            color: #777;
+            font-size: 12px;
+        }
+        
+        .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .social-btn:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .register-link {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+        
+        .register-link a {
+            color: #2e7d32;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <img src="logo.png" alt="AgriPortal Logo" class="logo">
+        <h1>Welcome to AgriPortal</h1>
+        
+        <div class="user-type-selector">
+            <button class="user-type-btn active" data-user-type="farmer">Farmer</button>
+            <button class="user-type-btn" data-user-type="buyer">Buyer</button>
+            <button class="user-type-btn" data-user-type="admin">Admin</button>
+        </div>
+        
+        <form id="loginForm">
+            <input type="hidden" id="userType" name="userType" value="farmer">
+            
+            <div class="form-group">
+                <label for="username">Username or Email</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username or email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            
+            <button type="submit" class="login-btn">Login</button>
+            <a href="#" class="forgot-password">Forgot password?</a>
+            
+            <div class="divider">
+                <span class="divider-text">OR</span>
+            </div>
+            
+            <div class="social-login">
+                <div class="social-btn">
+                    <img src="google-icon.png" alt="Google" width="20">
+                </div>
+                <div class="social-btn">
+                    <img src="facebook-icon.png" alt="Facebook" width="20">
+                </div>
+            </div>
+            
+            <div class="register-link">
+                Don't have an account? <a href="#" id="registerLink">Register as Farmer</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Handle user type selection
+        const userTypeButtons = document.querySelectorAll('.user-type-btn');
+        const userTypeInput = document.getElementById('userType');
+        const registerLink = document.getElementById('registerLink');
+        
+        userTypeButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const selectedType = this.getAttribute('data-user-type');
+                
+                // Update active button
+                userTypeButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Update hidden input
+                userTypeInput.value = selectedType;
+                
+                // Update register link text
+                registerLink.textContent = `Register as ${capitalizeFirstLetter(selectedType)}`;
+            });
+        });
+        
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+        
+        // Handle form submission
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const userType = userTypeInput.value;
+            
+            // Here you would typically send this data to your server for authentication
+            console.log(`Logging in as ${userType} with username: ${username}`);
+            
+            // Redirect based on user type (this would be handled by your backend)
+            switch(userType) {
+                case 'farmer':
+                    window.location.href = 'farmer-dashboard.html';
+                    break;
+                case 'buyer':
+                    window.location.href = 'buyer-dashboard.html';
+                    break;
+                case 'admin':
+                    window.location.href = 'admin-dashboard.html';
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>

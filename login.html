@@ -193,12 +193,12 @@
             
             <div class="form-group">
                 <label for="username">Username or Email</label>
-                <input type="text" id="username" name="username" placeholder="Enter your username or email" required>
+                <input type="text" id="username" name="username" placeholder="Enter your username or email" >
             </div>
             
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                <input type="password" id="password" name="password" placeholder="Enter your password" >
             </div>
             
             <button type="submit" class="login-btn">Login</button>
@@ -263,13 +263,13 @@
             // Redirect based on user type (this would be handled by your backend)
             switch(userType) {
                 case 'farmer':
-                    window.location.href = 'farmer-dashboard.html';
+                    window.location.href = 'farmerdashboard.html';
                     break;
                 case 'buyer':
-                    window.location.href = 'buyer-dashboard.html';
+                    window.location.href = 'buyerDashboard.html';
                     break;
                 case 'admin':
-                    window.location.href = 'admin-dashboard.html';
+                    window.location.href = 'adminDashboard.php';
                     break;
             }
         });

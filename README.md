@@ -12,7 +12,7 @@ AgriBid is a web application that connects farmers directly with warehouses, res
 
 ## 🎯 Live Demo
 
-**Visit:** [https://yourusername.github.io/AgriBid/](https://yourusername.github.io/AgriBid/)
+**Visit:** [https://yourusername.github.io/AgriBid/](https://srbshakib.github.io/AgriBid/)
 
 ---
 

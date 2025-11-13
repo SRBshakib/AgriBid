@@ -1,0 +1,31 @@
+# GitHub Pages Configuration for AgriBid
+
+# Theme (optional - using custom HTML/CSS)
+theme: null
+
+# Site settings
+title: AgriBid
+description: Smart Bidding Platform for Fair Agricultural Trade
+url: "https://yourusername.github.io"
+baseurl: "/AgriBid"
+
+# Build settings
+markdown: kramdown
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
+
+# Exclude files from processing
+exclude:
+  - README.md
+  - DOCUMENTS/
+  - "*.md"
+  - node_modules/
+  - vendor/
+
+# Include files
+include:
+  - _config.yml
+
+# Timezone
+timezone: Asia/Dhaka

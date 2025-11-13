@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriBid - Smart Bidding Platform for Fair Agricultural Trade</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/Style.css">
+    <style>
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(39, 174, 96, 0.95) 0%, rgba(46, 204, 113, 0.9) 100%),
+                        url('images/banner-1.png') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            animation: pulseGlow 8s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Slide In Animations */
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 1s ease-out forwards;
+        }
+
+        .slide-in-right {
+            animation: slideInRight 1s ease-out forwards;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            display: block;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+
+        /* CTA Buttons */
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-hero {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-hero-primary {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        .btn-hero-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+            color: var(--primary-color);
+        }
+
+        .btn-hero-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-hero-secondary:hover {
+            background: white;
+            color: var(--primary-color);
+            transform: translateY(-4px);
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 6rem 0;
+            background: var(--body-color);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 4rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            transition: var(--tran-base);
+            height: 100%;
+            border: 1px solid var(--border-color);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+            box-shadow: 0 8px 20px rgba(39, 174, 96, 0.3);
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .step-card {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .step-number {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            box-shadow: 0 8px 20px rgba(39, 174, 96, 0.3);
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .step-description {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* User Types Section */
+        .user-types-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .user-type-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            text-align: center;
+            box-shadow: var(--shadow-xl);
+            transition: var(--tran-base);
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .user-type-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+        }
+
+        .user-type-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-2xl);
+        }
+
+        .user-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, rgba(39, 174, 96, 0.1), rgba(46, 204, 113, 0.15));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 3rem;
+            color: var(--primary-color);
+        }
+
+        .user-type-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .user-benefits {
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .user-benefits li {
+            padding: 0.75rem 0;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-benefits li i {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            color: white;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: var(--tran-base);
+            box-shadow: 0 8px 20px rgba(39, 174, 96, 0.3);
+        }
+
+        .btn-login:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(39, 174, 96, 0.4);
+            color: white;
+        }
+
+        /* Products Showcase */
+        .products-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8f5e9 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .products-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(39, 174, 96, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: var(--shadow-2xl);
+        }
+
+        .product-image-wrapper {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+            background: #f8f9fa;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.15) rotate(2deg);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-category {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+
+        .product-unit {
+            font-size: 0.9rem;
+            color: var(--text-tertiary);
+            font-weight: 400;
+        }
+
+        .product-bids {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .product-bids i {
+            color: #f39c12;
+        }
+
+        /* Auction Badge Animation */
+        .auction-badge {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+
+        /* Fresh Badge */
+        .fresh-badge {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+        }
+
+        /* Trending Badge */
+        .trending-badge {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .testimonial-card {
+            background: var(--body-color);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-md);
+            height: 100%;
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            object-fit: cover;
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+        }
+
+        .author-info h5 {
+            margin: 0;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .author-info p {
+            margin: 0;
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a252f;
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--tran-base);
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: var(--tran-base);
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 3rem;
+            padding-top: 2rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Navbar */
+        .navbar-custom {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--tran-base);
+        }
+
+        .navbar-custom.scrolled {
+            padding: 0.5rem 0;
+            box-shadow: var(--shadow-md);
+        }
+
+        .navbar-brand-custom {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-link-custom {
+            color: var(--text-primary);
+            font-weight: 500;
+            margin: 0 1rem;
+            transition: var(--tran-base);
+        }
+
+        .nav-link-custom:hover {
+            color: var(--primary-color);
+        }
+
+        .btn-nav-login {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--tran-base);
+        }
+
+        .btn-nav-login:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cta-section h2 {
+                font-size: 2rem;
+            }
+
+            .hero-stats {
+                gap: 2rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+
+        /* Scroll Reveal Animation */
+        [data-aos] {
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container">
+            <a class="navbar-brand navbar-brand-custom" href="index.html">
+                <i class="fas fa-leaf"></i> AgriBid
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom" href="#how-it-works">How It Works</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom" href="#products">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom" href="#user-types">Join Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom" href="#testimonials">Testimonials</a>
+                    </li>
+                    <li class="nav-item ms-3">
+                        <a class="btn btn-nav-login" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <!-- Floating Product Images -->
+        <div style="position: absolute; top: 15%; right: 10%; width: 200px; height: 200px; opacity: 0.3; animation: float 6s ease-in-out infinite;">
+            <img src="images/tomato.jpg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; box-shadow: 0 20px 60px rgba(0,0,0,0.3);" alt="Tomato">
+        </div>
+        <div style="position: absolute; bottom: 20%; right: 5%; width: 150px; height: 150px; opacity: 0.3; animation: float 8s ease-in-out infinite 1s;">
+            <img src="images/mango.jpg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; box-shadow: 0 20px 60px rgba(0,0,0,0.3);" alt="Mango">
+        </div>
+        <div style="position: absolute; top: 40%; right: 15%; width: 120px; height: 120px; opacity: 0.25; animation: float 7s ease-in-out infinite 2s;">
+            <img src="images/cauli.jpg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; box-shadow: 0 20px 60px rgba(0,0,0,0.3);" alt="Cauliflower">
+        </div>
+        
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 hero-content" data-aos="fade-up">
+                    <h1 class="hero-title slide-in-left">Fair Trade Starts Here.<br>Connect. Bid. Grow.</h1>
+                    <p class="hero-subtitle slide-in-left" style="animation-delay: 0.2s;">Empowering farmers with direct market access and transparent bidding. Connecting buyers with fresh, quality produce at competitive prices.</p>
+                    
+                    <div class="cta-buttons slide-in-left" style="animation-delay: 0.4s;">
+                        <a href="#user-types" class="btn-hero btn-hero-primary">
+                            Get Started <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="#how-it-works" class="btn-hero btn-hero-secondary">
+                            Learn More <i class="fas fa-play-circle"></i>
+                        </a>
+                    </div>
+
+                    <div class="hero-stats">
+                        <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
+                            <span class="stat-number">10,000+</span>
+                            <span class="stat-label">Active Farmers</span>
+                        </div>
+                        <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
+                            <span class="stat-number">5,000+</span>
+                            <span class="stat-label">Buyers</span>
+                        </div>
+                        <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
+                            <span class="stat-number">50,000+</span>
+                            <span class="stat-label">Successful Trades</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Why Choose AgriBid?</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                Revolutionary features designed to transform agricultural commerce
+            </p>
+
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-gavel"></i>
+                        </div>
+                        <h3 class="feature-title">Smart Bidding</h3>
+                        <p class="feature-description">Real-time competitive bidding ensures farmers get the best price while buyers access quality produce at fair rates.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3 class="feature-title">Direct Trade</h3>
+                        <p class="feature-description">Eliminate middlemen and connect directly. Farmers earn more, buyers pay less.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="feature-title">Secure Payments</h3>
+                        <p class="feature-description">Multiple payment options with advanced security. Your transactions are safe and transparent.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="feature-title">Market Analytics</h3>
+                        <p class="feature-description">Real-time market insights and price trends to make informed decisions.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <h3 class="feature-title">Logistics Support</h3>
+                        <p class="feature-description">Integrated delivery tracking and logistics management for seamless transactions.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3 class="feature-title">Mobile First</h3>
+                        <p class="feature-description">Access from anywhere, anytime. Full-featured mobile experience.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">How It Works</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                Simple steps to start trading on AgriBid
+            </p>
+
+            <div class="row g-5">
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h3 class="step-title">Register</h3>
+                        <p class="step-description">Create your account as a farmer or buyer in minutes. Quick verification process.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h3 class="step-title">List or Browse</h3>
+                        <p class="step-description">Farmers list products, buyers browse and search for what they need.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3 class="step-title">Bid or Buy</h3>
+                        <p class="step-description">Place competitive bids or buy directly at listed prices.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h3 class="step-title">Trade & Deliver</h3>
+                        <p class="step-description">Complete secure payment and arrange delivery with tracking.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Showcase Section -->
+    <section class="products-section" id="products">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Fresh Products Available</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                Browse our quality agricultural products from verified farmers
+            </p>
+
+            <div class="row g-4">
+                <!-- Product 1: Tomatoes -->
+                <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="product-card">
+                        <div class="product-image-wrapper">
+                            <img src="images/tomato.jpg" alt="Fresh Tomatoes" class="product-image">
+                            <span class="product-badge auction-badge">
+                                <i class="fas fa-gavel"></i> Live Auction
+                            </span>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">Vegetables</div>
+                            <h3 class="product-name">Fresh Red Tomatoes</h3>
+                            <div class="product-meta">
+                                <div>
+                                    <span class="product-price">৳450</span>
+                                    <span class="product-unit">/kg</span>
+                                </div>
+                                <div class="product-bids">
+                                    <i class="fas fa-fire"></i>
+                                    <span>12 bids</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2: Mango -->
+                <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="product-card">
+                        <div class="product-image-wrapper">
+                            <img src="images/mango.jpg" alt="Fresh Mangoes" class="product-image">
+                            <span class="product-badge fresh-badge">
+                                <i class="fas fa-leaf"></i> Fresh
+                            </span>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">Fruits</div>
+                            <h3 class="product-name">Himsagar Mango</h3>
+                            <div class="product-meta">
+                                <div>
+                                    <span class="product-price">৳850</span>
+                                    <span class="product-unit">/dozen</span>
+                                </div>
+                                <div class="product-bids">
+                                    <i class="fas fa-fire"></i>
+                                    <span>8 bids</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3: Potato -->
+                <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="product-card">
+                        <div class="product-image-wrapper">
+                            <img src="images/potato.jpg" alt="Fresh Potatoes" class="product-image">
+                            <span class="product-badge trending-badge">
+                                <i class="fas fa-chart-line"></i> Trending
+                            </span>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">Vegetables</div>
+                            <h3 class="product-name">Premium Potatoes</h3>
+                            <div class="product-meta">
+                                <div>
+                                    <span class="product-price">৳320</span>
+                                    <span class="product-unit">/kg</span>
+                                </div>
+                                <div class="product-bids">
+                                    <i class="fas fa-fire"></i>
+                                    <span>15 bids</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 4: Cauliflower -->
+                <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="product-card">
+                        <div class="product-image-wrapper">
+                            <img src="images/cauli.jpg" alt="Fresh Cauliflower" class="product-image">
+                            <span class="product-badge fresh-badge">
+                                <i class="fas fa-leaf"></i> Fresh
+                            </span>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">Vegetables</div>
+                            <h3 class="product-name">Organic Cauliflower</h3>
+                            <div class="product-meta">
+                                <div>
+                                    <span class="product-price">৳280</span>
+                                    <span class="product-unit">/kg</span>
+                                </div>
+                                <div class="product-bids">
+                                    <i class="fas fa-fire"></i>
+                                    <span>6 bids</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 5: Eggplant -->
+                <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="product-card">
+                        <div class="product-image-wrapper">
+                            <img src="images/eggpalnt.jpg" alt="Fresh Eggplant" class="product-image">
+                            <span class="product-badge auction-badge">
+                                <i class="fas fa-gavel"></i> Live Auction
+                            </span>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">Vegetables</div>
+                            <h3 class="product-name">Fresh Eggplant</h3>
+                            <div class="product-meta">
+                                <div>
+                                    <span class="product-price">৳180</span>
+                                    <span class="product-unit">/kg</span>
+                                </div>
+                                <div class="product-bids">
+                                    <i class="fas fa-fire"></i>
+                                    <span>9 bids</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 6: Amrapali Rice -->
+                <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="product-card">
+                        <div class="product-image-wrapper">
+                            <img src="images/amropali.jpg" alt="Amrapali Rice" class="product-image">
+                            <span class="product-badge trending-badge">
+                                <i class="fas fa-chart-line"></i> Trending
+                            </span>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">Grains</div>
+                            <h3 class="product-name">Amrapali Premium Rice</h3>
+                            <div class="product-meta">
+                                <div>
+                                    <span class="product-price">৳650</span>
+                                    <span class="product-unit">/kg</span>
+                                </div>
+                                <div class="product-bids">
+                                    <i class="fas fa-fire"></i>
+                                    <span>20 bids</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View All Products Button -->
+            <div class="text-center mt-5" data-aos="fade-up">
+                <a href="#" class="btn-login" onclick="openLoginModal(); return false;">
+                    View All Products <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- User Types Section -->
+    <section class="user-types-section" id="user-types">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Join AgriBid Today</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                Choose your role and start your journey
+            </p>
+
+            <div class="row g-5">
+                <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
+                    <div class="user-type-card">
+                        <div class="user-icon">
+                            <i class="fas fa-tractor"></i>
+                        </div>
+                        <h3 class="user-type-title">I'm a Farmer</h3>
+                        <p class="text-muted">Sell your produce directly to buyers and get fair prices</p>
+                        
+                        <ul class="user-benefits">
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>No middlemen - Keep more profits</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Set your own prices or auction</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Real-time market insights</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Secure and fast payments</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Access to wide buyer network</span>
+                            </li>
+                        </ul>
+
+                        <a href="farmerdashboard.html" class="btn-login">
+                            <i class="fas fa-sign-in-alt"></i> Login as Farmer
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-6" data-aos="fade-left" data-aos-delay="200">
+                    <div class="user-type-card">
+                        <div class="user-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <h3 class="user-type-title">I'm a Buyer</h3>
+                        <p class="text-muted">Get fresh produce directly from farmers at competitive prices</p>
+                        
+                        <ul class="user-benefits">
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Fresh produce directly from farm</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Competitive bidding system</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Quality assurance guaranteed</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Bulk ordering options</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Delivery tracking system</span>
+                            </li>
+                        </ul>
+
+                        <a href="buyerDashboard.html" class="btn-login">
+                            <i class="fas fa-sign-in-alt"></i> Login as Buyer
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section" id="testimonials">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">What Our Users Say</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                Real stories from farmers and buyers using AgriBid
+            </p>
+
+            <div class="row g-4">
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            "AgriBid changed my life! I now sell directly to restaurants and earn 40% more than before. No more middlemen taking my profits."
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="images/user.png" alt="Rahim Uddin" class="author-avatar" style="border-radius: 50%; object-fit: cover;">
+                            <div class="author-info">
+                                <h5>Rahim Uddin</h5>
+                                <p>Farmer from Barisal</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            "As a restaurant owner, getting fresh vegetables directly from farmers has improved our food quality and reduced costs significantly."
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="images/user.png" alt="Sadia Karim" class="author-avatar" style="border-radius: 50%; object-fit: cover;">
+                            <div class="author-info">
+                                <h5>Sadia Karim</h5>
+                                <p>Restaurant Owner, Dhaka</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            "The bidding system is transparent and fair. I can see real-time prices and make better decisions for my supermarket chain."
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="images/user.png" alt="Kamal Hassan" class="author-avatar" style="border-radius: 50%; object-fit: cover;">
+                            <div class="author-info">
+                                <h5>Kamal Hassan</h5>
+                                <p>Supermarket Chain Manager</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container" data-aos="zoom-in">
+            <h2>Ready to Transform Your Agricultural Trade?</h2>
+            <p>Join thousands of farmers and buyers already trading on AgriBid</p>
+            <div class="cta-buttons justify-content-center">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" class="btn-hero btn-hero-primary">
+                    <i class="fas fa-rocket"></i> Get Started Now
+                </a>
+                <a href="#features" class="btn-hero btn-hero-secondary">
+                    <i class="fas fa-info-circle"></i> Learn More
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h3 class="navbar-brand-custom mb-3" style="color: white;">
+                        <i class="fas fa-leaf"></i> AgriBid
+                    </h3>
+                    <p style="color: rgba(255, 255, 255, 0.7);">
+                        Empowering farmers and connecting buyers through transparent, fair, and efficient agricultural trade.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="mb-3">Quick Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#user-types">Join Us</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="mb-3">User Access</h5>
+                    <ul class="footer-links">
+                        <li><a href="farmerdashboard.html">Farmer Login</a></li>
+                        <li><a href="buyerDashboard.html">Buyer Login</a></li>
+                        <li><a href="adminDashboard.html">Admin Login</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="mb-3">Support</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="mb-3">Company</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 AgriBid. All rights reserved. | Empowering Agriculture, One Trade at a Time.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 20px; overflow: hidden;">
+                <div class="modal-header" style="background: linear-gradient(135deg, var(--primary-color), var(--primary-light)); color: white; border: none;">
+                    <h5 class="modal-title"><i class="fas fa-sign-in-alt"></i> Choose Login Type</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" style="padding: 2rem;">
+                    <p class="text-center text-muted mb-4">Select your account type to continue</p>
+                    
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <button data-login="farmer" class="btn w-100" style="padding: 1.5rem; background: linear-gradient(135deg, rgba(39, 174, 96, 0.1), rgba(46, 204, 113, 0.15)); border: 2px solid var(--primary-color); color: var(--primary-color); font-weight: 600; border-radius: 12px; transition: all 0.3s;">
+                                <i class="fas fa-tractor fa-2x mb-2"></i>
+                                <div>Login as Farmer</div>
+                                <small class="text-muted">Sell your agricultural products</small>
+                            </button>
+                        </div>
+                        <div class="col-12">
+                            <button data-login="buyer" class="btn w-100" style="padding: 1.5rem; background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(52, 152, 219, 0.15)); border: 2px solid #3498db; color: #3498db; font-weight: 600; border-radius: 12px; transition: all 0.3s;">
+                                <i class="fas fa-shopping-cart fa-2x mb-2"></i>
+                                <div>Login as Buyer</div>
+                                <small class="text-muted">Purchase fresh produce</small>
+                            </button>
+                        </div>
+                        <div class="col-12">
+                            <button data-login="admin" class="btn w-100" style="padding: 1.5rem; background: linear-gradient(135deg, rgba(243, 156, 18, 0.1), rgba(243, 156, 18, 0.15)); border: 2px solid #f39c12; color: #f39c12; font-weight: 600; border-radius: 12px; transition: all 0.3s;">
+                                <i class="fas fa-user-shield fa-2x mb-2"></i>
+                                <div>Login as Admin</div>
+                                <small class="text-muted">Manage platform operations</small>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Authentication System -->
+    <script src="auth.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar-custom');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && href !== '#loginModal') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        const offsetTop = target.offsetTop - 80;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Add hover effect to user type cards
+        document.querySelectorAll('.user-type-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-15px) scale(1.02)';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Modal button hover effects
+        document.querySelectorAll('.modal-body .btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+                this.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.15)';
+            });
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = 'none';
+            });
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const heroSection = document.querySelector('.hero-section');
+            if (heroSection) {
+                heroSection.style.backgroundPositionY = scrolled * 0.5 + 'px';
+            }
+        });
+
+        // Counter animation for statistics
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            const timer = setInterval(() => {
+                start += increment;
+                if (start >= target) {
+                    element.textContent = target.toLocaleString() + '+';
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(start).toLocaleString() + '+';
+                }
+            }, 16);
+        }
+
+        // Trigger counter animation when stats come into view
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px'
+        };
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+                    entry.target.classList.add('counted');
+                    const number = entry.target.querySelector('.stat-number');
+                    const targetValue = parseInt(number.textContent.replace(/[^0-9]/g, ''));
+                    animateCounter(number, targetValue);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.stat-item').forEach(stat => {
+            statsObserver.observe(stat);
+        });
+
+        // Add shimmer effect to product cards on hover
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const badge = this.querySelector('.product-badge');
+                if (badge) {
+                    badge.style.animation = 'pulse 0.5s ease-in-out';
+                }
+            });
+        });
+
+        // Add tilt effect to feature cards
+        document.querySelectorAll('.feature-card, .product-card').forEach(card => {
+            card.addEventListener('mousemove', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+                
+                this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+            });
+        });
+
+        // Add loading animation
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease-in';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        console.log('🌾 AgriBid Platform - Ready to revolutionize agricultural trade!');
+    </script>
+</body>
+</html>
